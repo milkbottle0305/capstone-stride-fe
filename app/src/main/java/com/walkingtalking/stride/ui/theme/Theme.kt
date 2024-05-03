@@ -1,42 +1,30 @@
 package com.walkingtalking.stride.ui.theme
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 
-
-val Brown100 = Color(0xffFFFCF5)
-val Brown300 = Color(0xffFFF6E5)
-val Brown500 = Color(0xffFFF1D4)
-val Brown700 = Color(0xff460000)
-val Orange = Color(0xffFF9800)
-val Black = Color(0xff000000)
-val White = Color(0xffffffff)
-val Blue = Color(0xff007AFF)
-val Pink = Color(0xffFFA8C7)
-val Red = Color(0xffFF0000)
 
 fun lightColors() = StrideColors(
     primary = Brown700,
     secondary = Brown100,
     tertiary = Blue,
     quaternary = Pink,
-    backgroundPrimary = Brown500,
-    backgroundSecondary = Brown100,
+    backgroundPrimary = Brown100,
+    backgroundSecondary = Brown500,
     backgroundTertiary = Brown500,
     error = Red,
+    hint = Gray700,
     textPrimary = Black,
     textSecondary = Brown700,
     textTertiary = Brown100,
     textQuaternary = White,
+    buttonPrimary = Brown700,
+    buttonTextPrimary = White,
+    disableButtonPrimary = Gray300,
+    disableButtonTextPrimary = White,
     isLight = true
 )
 
@@ -49,10 +37,15 @@ fun darkColors() = StrideColors(
     backgroundSecondary = Brown300,
     backgroundTertiary = Brown500,
     error = Red,
+    hint = Gray700,
     textPrimary = White,
     textSecondary = Brown300,
     textTertiary = Brown500,
     textQuaternary = Black,
+    buttonPrimary = Brown700,
+    buttonTextPrimary = White,
+    disableButtonPrimary = Gray300,
+    disableButtonTextPrimary = White,
     isLight = false
 )
 
@@ -68,6 +61,7 @@ fun StrideTheme(
     CompositionLocalProvider(
         LocalColors provides rememberedColors,
     ) {
+        content()
     }
 }
 

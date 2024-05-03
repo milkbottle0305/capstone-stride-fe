@@ -6,6 +6,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
+val Brown100 = Color(0xffFFFCF5)
+val Brown300 = Color(0xffFFF6E5)
+val Brown500 = Color(0xffFFF1D4)
+val Brown700 = Color(0xff460000)
+val Orange = Color(0xffFF9800)
+val Black = Color(0xff000000)
+val Gray300 = Color(0xffD7D7D7)
+val Gray700 = Color(0xff444444)
+val White = Color(0xffffffff)
+val Blue = Color(0xff007AFF)
+val Pink = Color(0xffFFA8C7)
+val Red = Color(0xffFF0000)
 
 class StrideColors(
     primary: Color,
@@ -16,10 +28,15 @@ class StrideColors(
     backgroundSecondary: Color,
     backgroundTertiary: Color,
     error: Color,
+    hint: Color,
     textPrimary: Color,
     textSecondary: Color,
     textTertiary: Color,
     textQuaternary: Color,
+    buttonPrimary: Color,
+    buttonTextPrimary: Color,
+    disableButtonPrimary: Color,
+    disableButtonTextPrimary: Color,
     isLight: Boolean,
 ) {
     var primary by mutableStateOf(primary)
@@ -38,6 +55,8 @@ class StrideColors(
         private set
     var error by mutableStateOf(error)
         private set
+    var hint by mutableStateOf(hint)
+        private set
     var textPrimary by mutableStateOf(textPrimary)
         private set
     var textSecondary by mutableStateOf(textSecondary)
@@ -45,6 +64,14 @@ class StrideColors(
     var textTertiary by mutableStateOf(textTertiary)
         private set
     var textQuaternary by mutableStateOf(textQuaternary)
+        private set
+    var buttonPrimary by mutableStateOf(buttonPrimary)
+        private set
+    var buttonTextPrimary by mutableStateOf(buttonTextPrimary)
+        private set
+    var disableButtonPrimary by mutableStateOf(disableButtonPrimary)
+        private set
+    var disableButtonTextPrimary by mutableStateOf(disableButtonTextPrimary)
         private set
     var isLight by mutableStateOf(isLight)
         private set
@@ -58,10 +85,15 @@ class StrideColors(
         backgroundSecondary: Color = this.backgroundSecondary,
         backgroundTertiary: Color = this.backgroundTertiary,
         error: Color = this.error,
+        hint: Color = this.hint,
         textPrimary: Color = this.textPrimary,
         textSecondary: Color = this.textSecondary,
         textTertiary: Color = this.textTertiary,
         textQuaternary: Color = this.textQuaternary,
+        buttonPrimary: Color = this.buttonPrimary,
+        buttonTextPrimary: Color = this.buttonTextPrimary,
+        disableButtonPrimary: Color = this.disableButtonPrimary,
+        disableButtonTextPrimary: Color = this.disableButtonTextPrimary,
         isLight: Boolean = this.isLight,
     ) = StrideColors(
         primary = primary,
@@ -72,10 +104,15 @@ class StrideColors(
         backgroundSecondary = backgroundSecondary,
         backgroundTertiary = backgroundTertiary,
         error = error,
+        hint = hint,
         textPrimary = textPrimary,
         textSecondary = textSecondary,
         textTertiary = textTertiary,
         textQuaternary = textQuaternary,
+        buttonPrimary = buttonPrimary,
+        buttonTextPrimary = buttonTextPrimary,
+        disableButtonPrimary = disableButtonPrimary,
+        disableButtonTextPrimary = disableButtonTextPrimary,
         isLight = isLight,
     )
 
@@ -88,10 +125,15 @@ class StrideColors(
         backgroundSecondary = other.backgroundSecondary
         backgroundTertiary = other.backgroundTertiary
         error = other.error
+        hint = other.hint
         textPrimary = other.textPrimary
         textSecondary = other.textSecondary
         textTertiary = other.textTertiary
         textQuaternary = other.textQuaternary
+        buttonPrimary = other.buttonPrimary
+        buttonTextPrimary = other.buttonTextPrimary
+        disableButtonPrimary = other.disableButtonPrimary
+        disableButtonTextPrimary = other.disableButtonTextPrimary
         isLight = other.isLight
     }
 }
