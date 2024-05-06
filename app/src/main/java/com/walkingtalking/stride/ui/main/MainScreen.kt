@@ -43,7 +43,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.walkingtalking.stride.R
-import com.walkingtalking.stride.model.CoursePoint
+import com.walkingtalking.stride.data.model.CoursePoint
 import com.walkingtalking.stride.ui.main.components.CourseMap
 import com.walkingtalking.stride.ui.main.components.GoalModal
 import com.walkingtalking.stride.ui.theme.StrideTheme
@@ -362,7 +362,7 @@ fun MainScreen(
                         }
                     }
                 }
-                Spacer(modifier = Modifier.height(460.dp))
+                Spacer(modifier = Modifier.height(250.dp))
             }
         }
         if (isExerciseClicked.value) {

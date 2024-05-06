@@ -3,6 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     namespace 'com.walkingtalking.stride'
     compileSdk 33
@@ -18,6 +21,9 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        buildConfigField "String", "KAKAO_API_KEY", properties["KAKAO_API_KEY"]
+        resValue "string", "KAKAO_REDIRECT_URI", properties["KAKAO_REDIRECT_URI"]
+        resValue "string", "GOOGLE_MAP_API_KEY", properties["GOOGLE_MAP_API_KEY"]
     }
 
     buildTypes {
@@ -34,6 +40,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        buildConfig = true
         compose true
     }
     composeOptions {
@@ -63,7 +70,7 @@ dependencies {
     androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
-
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
     // Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -71,7 +78,10 @@ dependencies {
 
     // Google Map
     implementation 'com.google.maps.android:maps-compose:2.11.4'
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
+
+    // Kakao Login
+    implementation "com.kakao.sdk:v2-user:2.12.1"
 
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'

@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.walkingtalking.stride.R
@@ -28,6 +29,8 @@ import com.walkingtalking.stride.ui.theme.StrideTheme
 
 @Composable
 fun LoginScreen(navController: NavController) {
+    val viewModel: LoginViewModel = viewModel()
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = StrideTheme.colors.backgroundPrimary
@@ -60,7 +63,7 @@ fun LoginScreen(navController: NavController) {
                         .padding(top = 13.dp, start = 25.dp, end = 25.dp)
                         .fillMaxWidth()
                         .clip(shape = RoundedCornerShape(4.dp))
-                        .clickable { navController.navigate(Route.SignupGenderAge.name) },
+                        .clickable { viewModel.kakaoLogin() },
                     painter = painterResource(id = R.drawable.kakao_login),
                     contentDescription = "kakao_login",
                     contentScale = ContentScale.FillWidth,
