@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,13 +28,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.walkingtalking.stride.R
+import com.walkingtalking.stride.route.Route
 import com.walkingtalking.stride.ui.theme.StrideTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignupNicknameScreen(navController: NavController, viewModel: SignupNicknameViewModel) {
+fun SignupNicknameScreen(
+    navController: NavController,
+    viewModel: SignupViewModel
+) {
     val nickname = viewModel.nickname.value
-    val isEnabled = viewModel.isEnabled.value
+    val isCompleteButtonEnabled = viewModel.isCompleteButtonEnabled.value
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = StrideTheme.colors.backgroundPrimary
@@ -70,7 +75,9 @@ fun SignupNicknameScreen(navController: NavController, viewModel: SignupNickname
                         )
                     },
                     colors = TextFieldDefaults.textFieldColors(
-                        containerColor = StrideTheme.colors.secondary,
+                        containerColor = StrideTheme.colors.backgroundSecondary,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
                     ),
                 )
                 Spacer(
@@ -88,8 +95,13 @@ fun SignupNicknameScreen(navController: NavController, viewModel: SignupNickname
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(12.dp)),
-                    onClick = { /*TODO*/ },
-                    enabled = isEnabled,
+                    onClick = {
+                        navController.navigate(
+                            Route.Main.name,
+                            builder = { popUpTo(Route.Login.name) { inclusive = true } }
+                        )
+                    },
+                    enabled = isCompleteButtonEnabled,
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = StrideTheme.colors.buttonPrimary,
@@ -112,6 +124,6 @@ fun SignupNicknameScreen(navController: NavController, viewModel: SignupNickname
 @Composable
 fun PreviewSignupNicknameScreen() {
     val navController = rememberNavController()
-    val viewModel = SignupNicknameViewModel()
+    val viewModel = SignupViewModel()
     SignupNicknameScreen(navController = navController, viewModel = viewModel)
 }

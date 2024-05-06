@@ -39,10 +39,13 @@ import com.walkingtalking.stride.route.Route
 import com.walkingtalking.stride.ui.theme.StrideTheme.colors
 
 @Composable
-fun SignupGenderAgeScreen(navController: NavController, viewModel: SignupGenderAgeViewModel) {
+fun SignupGenderAgeScreen(
+    navController: NavController,
+    viewModel: SignupViewModel
+) {
     val gender = viewModel.gender.value
     val ageRange = viewModel.ageRange.value
-    val isEnabled = viewModel.isEnabled.value
+    val isNextButtonEnabled = viewModel.isNextButtonEnabled.value
 
     val genders = listOf(
         stringResource(R.string.signup_gender_male),
@@ -178,7 +181,7 @@ fun SignupGenderAgeScreen(navController: NavController, viewModel: SignupGenderA
                         .padding(top = 20.dp)
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(12.dp)),
-                    enabled = isEnabled,
+                    enabled = isNextButtonEnabled,
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = colors.buttonPrimary,
@@ -206,6 +209,6 @@ fun SignupGenderAgeScreen(navController: NavController, viewModel: SignupGenderA
 @Composable
 fun PreviewSignupGenderAgeScreen() {
     val navController = rememberNavController()
-    val viewModel = SignupGenderAgeViewModel()
+    val viewModel = SignupViewModel()
     SignupGenderAgeScreen(navController = navController, viewModel = viewModel)
 }

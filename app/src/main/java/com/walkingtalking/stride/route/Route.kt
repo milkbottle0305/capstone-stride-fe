@@ -4,7 +4,7 @@ enum class Route {
     Login,
     SignupGenderAge,
     SignupNickname,
-    Home,
+    Main,
     ExerciseCourseSelection,
     Exercise,
     ExerciseSummary,
