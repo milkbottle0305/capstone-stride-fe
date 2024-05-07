@@ -275,7 +275,6 @@ fun MainScreen(
                                 Row(
                                     modifier = Modifier.padding(8.dp)
                                 ) {
-                                    val density = LocalDensity.current
                                     CourseMap(
                                         modifier = Modifier
                                             .height(size.value)
@@ -303,7 +302,7 @@ fun MainScreen(
                                         Text(
                                             text = roomList[it].courseName,
                                             color = StrideTheme.colors.textSecondary,
-                                            fontSize = 15.sp,
+                                            fontSize = 16.sp,
                                             maxLines = 1,
                                         )
                                         Spacer(modifier = Modifier.height(4.dp))
@@ -313,7 +312,7 @@ fun MainScreen(
                                                 roomList[it].memberCount
                                             ),
                                             color = StrideTheme.colors.textSecondary,
-                                            fontSize = 15.sp,
+                                            fontSize = 16.sp,
                                         )
                                     }
                                 }
@@ -360,7 +359,7 @@ fun MainScreen(
                                         course.distance
                                     ),
                                     color = StrideTheme.colors.textSecondary,
-                                    fontSize = 12.sp,
+                                    fontSize = 16.sp,
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
@@ -369,7 +368,7 @@ fun MainScreen(
                                         course.duration
                                     ),
                                     color = StrideTheme.colors.textSecondary,
-                                    fontSize = 12.sp,
+                                    fontSize = 16.sp,
                                 )
                             }
                         }
