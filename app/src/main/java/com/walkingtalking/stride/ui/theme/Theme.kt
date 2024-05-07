@@ -25,6 +25,9 @@ fun lightColors() = StrideColors(
     buttonTextPrimary = White,
     disableButtonPrimary = Gray300,
     disableButtonTextPrimary = White,
+    navigationBackground = White,
+    navigationSelected = Brown700,
+    navigationUnselected = Gray500,
     isLight = true
 )
 
@@ -46,6 +49,9 @@ fun darkColors() = StrideColors(
     buttonTextPrimary = White,
     disableButtonPrimary = Gray300,
     disableButtonTextPrimary = White,
+    navigationBackground = White,
+    navigationSelected = Brown700,
+    navigationUnselected = Gray700,
     isLight = false
 )
 

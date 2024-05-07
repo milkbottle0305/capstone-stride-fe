@@ -1,4 +1,6 @@
-package com.walkingtalking.stride.ui.login
+@file:OptIn(ExperimentalMaterial3Api::class)
+
+package com.walkingtalking.stride.presentation.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -8,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,12 +27,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.walkingtalking.stride.R
-import com.walkingtalking.stride.route.Route
+import com.walkingtalking.stride.presentation.navigation.Screen
 import com.walkingtalking.stride.ui.theme.StrideTheme
 
 @Composable
-fun LoginScreen(navController: NavController) {
-    val viewModel: LoginViewModel = viewModel()
+fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewModel()) {
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -63,7 +65,7 @@ fun LoginScreen(navController: NavController) {
                         .padding(top = 13.dp, start = 25.dp, end = 25.dp)
                         .fillMaxWidth()
                         .clip(shape = RoundedCornerShape(4.dp))
-                        .clickable { viewModel.kakaoLogin() },
+                        .clickable { viewModel.kakaoLogin(navController) },
                     painter = painterResource(id = R.drawable.kakao_login),
                     contentDescription = "kakao_login",
                     contentScale = ContentScale.FillWidth,
@@ -73,9 +75,9 @@ fun LoginScreen(navController: NavController) {
                         .padding(top = 13.dp, start = 25.dp, end = 25.dp)
                         .fillMaxWidth()
                         .clip(shape = RoundedCornerShape(4.dp))
-                        .clickable { navController.navigate(Route.SignupGenderAge.name) },
-                    painter = painterResource(id = R.drawable.apple_login),
-                    contentDescription = "apple_login",
+                        .clickable { navController.navigate(Screen.SignupGenderAge.route) },
+                    painter = painterResource(id = R.drawable.google_login),
+                    contentDescription = "google_login",
                     contentScale = ContentScale.FillWidth,
                 )
             }

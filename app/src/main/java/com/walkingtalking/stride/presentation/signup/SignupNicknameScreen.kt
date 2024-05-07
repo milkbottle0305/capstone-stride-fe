@@ -1,4 +1,4 @@
-package com.walkingtalking.stride.ui.signup
+package com.walkingtalking.stride.presentation.signup
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.walkingtalking.stride.R
-import com.walkingtalking.stride.route.Route
+import com.walkingtalking.stride.presentation.navigation.Screen
 import com.walkingtalking.stride.ui.theme.StrideTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -97,8 +97,8 @@ fun SignupNicknameScreen(
                         .clip(RoundedCornerShape(12.dp)),
                     onClick = {
                         navController.navigate(
-                            Route.Main.name,
-                            builder = { popUpTo(Route.Login.name) { inclusive = true } }
+                            Screen.Main.route,
+                            builder = { popUpTo(Screen.Login.route) { inclusive = true } }
                         )
                     },
                     enabled = isCompleteButtonEnabled,

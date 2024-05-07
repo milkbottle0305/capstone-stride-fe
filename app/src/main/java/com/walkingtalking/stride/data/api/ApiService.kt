@@ -1,4 +1,4 @@
-package com.walkingtalking.stride.network
+package com.walkingtalking.stride.data.api
 
 import com.walkingtalking.stride.data.dto.LoginResponse
 import retrofit2.http.Field

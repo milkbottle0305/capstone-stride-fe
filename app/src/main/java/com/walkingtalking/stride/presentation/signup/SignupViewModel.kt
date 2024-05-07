@@ -1,4 +1,4 @@
-package com.walkingtalking.stride.ui.signup
+package com.walkingtalking.stride.presentation.signup
 
 import android.util.Log
 import androidx.compose.runtime.State
@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SignupViewModel @Inject constructor(): ViewModel() {
+class SignupViewModel @Inject constructor() : ViewModel() {
     private val _gender = mutableStateOf("")
     val gender: State<String> = _gender
     private val _ageRange = mutableStateOf("")

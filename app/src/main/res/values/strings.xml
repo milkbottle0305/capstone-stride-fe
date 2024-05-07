@@ -34,6 +34,9 @@
     <string name="exercise_time_unit">%d시간 %d분</string>
     <string name="step">걸음수</string>
     <string name="step_unit">%,d걸음</string>
+    <string name="bottom_walk">산책하기</string>
+    <string name="bottom_together">함께하기</string>
+    <string name="bottom_analysis">분석하기</string>
     <string name="main_today_goal">오늘의 목표</string>
     <string name="main_join_room">참여 중인 방</string>
     <string name="main_current_course">나의 최근 코스</string>

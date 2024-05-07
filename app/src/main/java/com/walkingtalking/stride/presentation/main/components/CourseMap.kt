@@ -1,4 +1,4 @@
-package com.walkingtalking.stride.ui.main.components
+package com.walkingtalking.stride.presentation.main.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

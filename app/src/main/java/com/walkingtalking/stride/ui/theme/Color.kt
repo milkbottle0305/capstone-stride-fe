@@ -13,6 +13,7 @@ val Brown700 = Color(0xff460000)
 val Orange = Color(0xffFF9800)
 val Black = Color(0xff000000)
 val Gray300 = Color(0xffD7D7D7)
+val Gray500 = Color(0xff999999)
 val Gray700 = Color(0xff444444)
 val White = Color(0xffffffff)
 val Blue = Color(0xff007AFF)
@@ -37,6 +38,9 @@ class StrideColors(
     buttonTextPrimary: Color,
     disableButtonPrimary: Color,
     disableButtonTextPrimary: Color,
+    navigationBackground: Color,
+    navigationSelected: Color,
+    navigationUnselected: Color,
     isLight: Boolean,
 ) {
     var primary by mutableStateOf(primary)
@@ -73,6 +77,12 @@ class StrideColors(
         private set
     var disableButtonTextPrimary by mutableStateOf(disableButtonTextPrimary)
         private set
+    var navigationBackground by mutableStateOf(navigationBackground)
+        private set
+    var navigationSelected by mutableStateOf(navigationSelected)
+        private set
+    var navigationUnselected by mutableStateOf(navigationUnselected)
+        private set
     var isLight by mutableStateOf(isLight)
         private set
 
@@ -94,6 +104,9 @@ class StrideColors(
         buttonTextPrimary: Color = this.buttonTextPrimary,
         disableButtonPrimary: Color = this.disableButtonPrimary,
         disableButtonTextPrimary: Color = this.disableButtonTextPrimary,
+        navigationBackground: Color = this.navigationBackground,
+        navigationSelected: Color = this.navigationSelected,
+        navigationUnselected: Color = this.navigationUnselected,
         isLight: Boolean = this.isLight,
     ) = StrideColors(
         primary = primary,
@@ -113,6 +126,9 @@ class StrideColors(
         buttonTextPrimary = buttonTextPrimary,
         disableButtonPrimary = disableButtonPrimary,
         disableButtonTextPrimary = disableButtonTextPrimary,
+        navigationBackground = navigationBackground,
+        navigationSelected = navigationSelected,
+        navigationUnselected = navigationUnselected,
         isLight = isLight,
     )
 
@@ -134,6 +150,9 @@ class StrideColors(
         buttonTextPrimary = other.buttonTextPrimary
         disableButtonPrimary = other.disableButtonPrimary
         disableButtonTextPrimary = other.disableButtonTextPrimary
+        navigationBackground = other.navigationBackground
+        navigationSelected = other.navigationSelected
+        navigationUnselected = other.navigationUnselected
         isLight = other.isLight
     }
 }

@@ -1,4 +1,4 @@
-package com.walkingtalking.stride.ui.signup
+package com.walkingtalking.stride.presentation.signup
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.walkingtalking.stride.R
-import com.walkingtalking.stride.route.Route
+import com.walkingtalking.stride.presentation.navigation.Screen
 import com.walkingtalking.stride.ui.theme.StrideTheme.colors
 
 @Composable
@@ -190,7 +190,7 @@ fun SignupGenderAgeScreen(
                         disabledContentColor = colors.disableButtonTextPrimary,
                     ),
                     onClick = {
-                        navController.navigate(Route.SignupNickname.name)
+                        navController.navigate(Screen.SignupNickname.route)
                     }
                 ) {
                     Text(

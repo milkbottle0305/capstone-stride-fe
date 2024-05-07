@@ -1,4 +1,4 @@
-package com.walkingtalking.stride.ui.main.components
+package com.walkingtalking.stride.presentation.main.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

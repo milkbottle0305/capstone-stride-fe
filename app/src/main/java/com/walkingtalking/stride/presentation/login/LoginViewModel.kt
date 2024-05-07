@@ -1,14 +1,16 @@
-package com.walkingtalking.stride.ui.login
+package com.walkingtalking.stride.presentation.login
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import com.walkingtalking.stride.presentation.navigation.Screen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
@@ -16,8 +18,6 @@ import kotlin.coroutines.suspendCoroutine
 
 class LoginViewModel(
     application: Application
-
-
 ) : AndroidViewModel(application) {
 
     companion object {
@@ -30,13 +30,13 @@ class LoginViewModel(
     private val isLoggedIn = MutableStateFlow(false)
     private var kakaoUserId: String? = null
 
-    fun kakaoLogin() {
+    fun kakaoLogin(navController: NavController) {
         val launch = viewModelScope.launch {
-            isLoggedIn.emit(handleKakaoLogin())
+            isLoggedIn.emit(handleKakaoLogin(navController = navController))
         }
     }
 
-    private suspend fun handleKakaoLogin(): Boolean =
+    private suspend fun handleKakaoLogin(navController: NavController): Boolean =
         suspendCoroutine<Boolean> { continuation ->
             // 로그인 조합 예제
             // 카카오계정으로 로그인 공통 callback 구성
@@ -47,7 +47,7 @@ class LoginViewModel(
                     continuation.resume(false)
                 } else if (token != null) {
                     Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-                    saveKakaoUserId(token.accessToken) { success ->
+                    saveKakaoUserId(navController, token.accessToken) { success ->
                         if (success) {
                             continuation.resume(true)
                         } else {
@@ -80,7 +80,11 @@ class LoginViewModel(
         }
 
     // 개인 식별 ID를 저장
-    private fun saveKakaoUserId(accessToken: String, callback: (success: Boolean) -> Unit) {
+    private fun saveKakaoUserId(
+        navController: NavController,
+        accessToken: String,
+        callback: (success: Boolean) -> Unit
+    ) {
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null || tokenInfo == null) {
                 // 개인 식별 ID 획득 실패
@@ -90,6 +94,7 @@ class LoginViewModel(
                 kakaoUserId = tokenInfo.id.toString()
                 Log.d(TAG, "카카오 ID: $kakaoUserId")
                 callback(true)
+                navController.navigate(Screen.SignupGenderAge.route)
             }
         }
     }
