@@ -75,4 +75,5 @@
     <string name="together_detail_start_point">출발지: %s</string>
     <string name="together_detail_time">%d시 %d분</string>
     <string name="together_detail_participating">%d명</string>
+    <string name="request_error">서버와의 통신 중에 예상치 못한 오류가 발생했습니다.</string>
 </resources>
