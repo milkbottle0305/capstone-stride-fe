@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.walktalk.stride.data.dto.request.UserDataRequest
+import com.walktalk.stride.data.model.ApiState
 import com.walktalk.stride.data.repository.SignupRepository
 import kotlinx.coroutines.launch
 
@@ -22,19 +23,11 @@ class SignupViewModel : ViewModel() {
     private val _nickname = mutableStateOf("")
     val nickname: State<String> = _nickname
     private val _isCompleteButtonEnabled = mutableStateOf(false)
-    val isCompleteButtonEnabled: State<Boolean> = _isCompleteButtonEnabled
+    var isCompleteButtonEnabled: State<Boolean> = _isCompleteButtonEnabled
+        private set
 
-    private var _setUserDataResult = mutableStateOf<Boolean?>(null)
-    val setUserDataResult: State<Boolean?> = _setUserDataResult
-
-    init {
-        Log.d("SignupViewModel", "SignupViewModel created $this")
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("SignupViewModel", "SignupViewModel destroyed $this")
-    }
+    private val _setUserDataApiState = mutableStateOf<ApiState<String>>(ApiState.Empty)
+    val setUserDataApiState: State<ApiState<String>> = _setUserDataApiState
 
     fun onGenderSelected(index: Int) {
         _genderIndex.value = index
@@ -61,7 +54,9 @@ class SignupViewModel : ViewModel() {
     }
 
     fun setUserData() {
+
         viewModelScope.launch {
+            _setUserDataApiState.value = ApiState.Loading
             try {
                 if (genderIndex.value == null || ageIndex.value == null) {
                     return@launch
@@ -87,11 +82,20 @@ class SignupViewModel : ViewModel() {
                 )
                 val response = signupRepository.setUserData(request)
                 Log.d(TAG, "setUserData: $response")
-                _setUserDataResult.value = request == response
+                if (response == request) {
+                    _setUserDataApiState.value = ApiState.Success("Success")
+                } else {
+                    _setUserDataApiState.value = ApiState.Error("Failed to set user data")
+                }
             } catch (e: Exception) {
-                val e1 = Log.e("SignupViewModel", "Failed to set user data", e)
-                _setUserDataResult.value = false
+                _setUserDataApiState.value =
+                    ApiState.Error(e.message ?: "An unknown error occurred")
             }
         }
+    }
+
+    fun resetApiState() {
+        Log.d(TAG, "resetApiState")
+        _setUserDataApiState.value = ApiState.Empty
     }
 }

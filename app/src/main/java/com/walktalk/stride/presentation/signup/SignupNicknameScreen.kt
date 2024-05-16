@@ -1,5 +1,7 @@
 package com.walktalk.stride.presentation.signup
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,7 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,9 +34,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.walktalk.stride.R
+import com.walktalk.stride.data.model.ApiState
 import com.walktalk.stride.presentation.navigation.Screen
 import com.walktalk.stride.ui.theme.StrideTheme
 
+@SuppressLint("ShowToast")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignupNicknameScreen(
@@ -43,20 +47,36 @@ fun SignupNicknameScreen(
 ) {
     val nickname = viewModel.nickname.value
     val isCompleteButtonEnabled = viewModel.isCompleteButtonEnabled.value
+    val context = LocalContext.current
+    val setUserDataApiState = viewModel.setUserDataApiState.value
 
-    val setUserDataResult = viewModel.setUserDataResult.value
-    LaunchedEffect(setUserDataResult!!) {
-        if (it) {
-            navController.navigate(
-                Screen.Main.route,
-                builder = { popUpTo(Screen.Login.route) { inclusive = true } }
-            )
-        } else {
-            Toast.makeText(
-                LocalContext.current,
-                stringResource(R.string.request_error),
-                Toast.LENGTH_SHORT
-            ).show()
+    DisposableEffect(setUserDataApiState) {
+        when (setUserDataApiState) {
+            is ApiState.Success -> {
+                navController.navigate(Screen.Main.route) {
+                    popUpTo(Screen.SignupNickname.route) {
+                        inclusive = true
+                    }
+                }
+            }
+
+            is ApiState.Error -> {
+                Log.e("SignupNicknameScreen", "Error: ${setUserDataApiState.message}")
+                Toast.makeText(
+                    context,
+                    "Error: ${setUserDataApiState.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            is ApiState.Loading -> {
+            }
+
+            is ApiState.Empty -> {
+            }
+        }
+        onDispose {
+            viewModel.resetApiState()
         }
     }
 
@@ -116,9 +136,10 @@ fun SignupNicknameScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(12.dp)),
-                    onClick = { viewModel.setUserData() },
-                    enabled = isCompleteButtonEnabled,
-                    shape = RoundedCornerShape(12.dp),
+                    onClick = {
+                        viewModel.setUserData()
+                    },
+                    enabled = isCompleteButtonEnabled && setUserDataApiState !is ApiState.Loading,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = StrideTheme.colors.buttonPrimary,
                         contentColor = StrideTheme.colors.buttonTextPrimary,
@@ -134,6 +155,7 @@ fun SignupNicknameScreen(
             }
         }
     }
+
 }
 
 @Preview

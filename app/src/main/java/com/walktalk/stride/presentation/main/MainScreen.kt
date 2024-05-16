@@ -391,7 +391,8 @@ fun MainScreen(
                 Surface(
                     modifier = Modifier
                         .size(100.dp)
-                        .offset(x = offsetX.value, y = offsetY.value + (-200).dp),
+                        .offset(x = offsetX.value, y = offsetY.value + (-200).dp)
+                        .clickable { navController.navigate("exercise/default") },
                     shape = CircleShape,
                     color = StrideTheme.colors.buttonPrimary,
                 ) {
@@ -407,7 +408,8 @@ fun MainScreen(
                 Surface(
                     modifier = Modifier
                         .size(100.dp)
-                        .offset(x = offsetX.value + (-130).dp, y = offsetY.value + (-100).dp),
+                        .offset(x = offsetX.value + (-130).dp, y = offsetY.value + (-100).dp)
+                        .clickable { navController.navigate("exercise/speed") },
                     shape = CircleShape,
                     color = StrideTheme.colors.buttonPrimary,
                 ) {
@@ -423,7 +425,8 @@ fun MainScreen(
                 Surface(
                     modifier = Modifier
                         .size(100.dp)
-                        .offset(x = offsetX.value + 130.dp, y = offsetY.value + (-100).dp),
+                        .offset(x = offsetX.value + 130.dp, y = offsetY.value + (-100).dp)
+                        .clickable { navController.navigate("exercise/stride") },
                     shape = CircleShape,
                     color = StrideTheme.colors.buttonPrimary,
                 ) {

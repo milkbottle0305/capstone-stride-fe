@@ -3,9 +3,12 @@ package com.walktalk.stride.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.walktalk.stride.presentation.analysis.AnalysisScreen
+import com.walktalk.stride.presentation.exercise.ExerciseScreen
 import com.walktalk.stride.presentation.login.LoginScreen
 import com.walktalk.stride.presentation.main.MainScreen
 import com.walktalk.stride.presentation.signup.SignupGenderAgeScreen
@@ -41,6 +44,17 @@ fun NavGraph(
         }
         composable(route = Screen.Main.route) {
             MainScreen(navController = navController, viewModel = viewModel())
+        }
+        composable(
+            route = Screen.Exercise.route,
+            arguments = listOf(navArgument("exerciseType") { type = NavType.StringType })
+        ) { entry ->
+            val exerciseType = entry.arguments?.getString("exerciseType") ?: "default"
+            ExerciseScreen(
+                navController = navController,
+                viewModel = viewModel(),
+                exerciseType = exerciseType
+            )
         }
         composable(route = Screen.Together.route) {
             TogetherScreen(
