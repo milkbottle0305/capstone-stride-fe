@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -26,6 +27,7 @@ import com.walktalk.stride.R
 import com.walktalk.stride.presentation.exercise.components.ExerciseMap
 import com.walktalk.stride.presentation.exercise.components.ProgressBar
 import com.walktalk.stride.presentation.exercise.components.StopButton
+import com.walktalk.stride.presentation.navigation.Screen
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -41,12 +43,13 @@ fun ExerciseScreen(
         listOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+            Manifest.permission.ACTIVITY_RECOGNITION,
         )
     } else {
         listOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_COARSE_LOCATION,
         )
     }
     // 위치 권한 상태를 관리합니다.
@@ -68,7 +71,6 @@ fun ExerciseScreen(
                         data = Uri.fromParts("package", context.packageName, null)
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     }
-
                     // 설정으로 이동
                     context.startActivity(settingsIntent)
                 }
@@ -78,12 +80,12 @@ fun ExerciseScreen(
             requestPermissionLauncher.launch(permissions.toTypedArray())
         }
     } else {
-        ExerciseContent(viewModel)
+        ExerciseContent(navController, viewModel)
     }
 }
 
 @Composable
-fun ExerciseContent(viewModel: ExerciseViewModel) {
+fun ExerciseContent(navController: NavController, viewModel: ExerciseViewModel) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -97,6 +99,17 @@ fun ExerciseContent(viewModel: ExerciseViewModel) {
         Spacer(modifier = Modifier.height(20.dp))
         ProgressBar(viewModel.process)
         Spacer(modifier = Modifier.height(20.dp))
-        StopButton(modifier = Modifier.align(Alignment.End), viewModel = viewModel)
+        StopButton(
+            modifier = Modifier
+                .align(Alignment.End)
+                .padding(end = 20.dp),
+            viewModel = viewModel
+        ) {
+            navController.navigate(Screen.ExerciseSummary.route) {
+                popUpTo(Screen.Exercise.route) {
+                    inclusive = true
+                }
+            }
+        }
     }
 }

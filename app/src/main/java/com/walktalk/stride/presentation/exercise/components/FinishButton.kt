@@ -11,7 +11,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.walktalk.stride.R
@@ -19,13 +18,13 @@ import com.walktalk.stride.presentation.exercise.ExerciseViewModel
 import com.walktalk.stride.ui.theme.StrideTheme
 
 @Composable
-fun StopButton(modifier: Modifier, viewModel: ExerciseViewModel) {
+fun StopButton(modifier: Modifier, viewModel: ExerciseViewModel, onClick: () -> Unit) {
     val context = LocalContext.current
     Surface(
         modifier = modifier
             .clip(shape = RoundedCornerShape(10.dp))
             .clickable {
-
+                onClick()
             },
         color = StrideTheme.colors.buttonPrimary
     ) {
@@ -36,13 +35,5 @@ fun StopButton(modifier: Modifier, viewModel: ExerciseViewModel) {
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
         )
-    }
-}
-
-@Preview
-@Composable
-fun StopButtonPreview() {
-    StrideTheme {
-        StopButton(Modifier, ExerciseViewModel())
     }
 }

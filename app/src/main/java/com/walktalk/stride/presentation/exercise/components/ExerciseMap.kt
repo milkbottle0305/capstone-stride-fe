@@ -24,7 +24,10 @@ import com.walktalk.stride.ui.theme.StrideTheme
 @Composable
 fun ExerciseMap(modifier: Modifier, viewModel: ExerciseViewModel) {
     val context = LocalContext.current
-    val filter = IntentFilter("LOCATION_UPDATE")
+    val filter = IntentFilter().apply {
+        addAction("STEP_UPDATE")
+        addAction("LOCATION_UPDATE")
+    }
     val intent = Intent(context, ExerciseService::class.java)
     val intentService = remember { Intent(context, ExerciseService::class.java) }
 
@@ -35,19 +38,26 @@ fun ExerciseMap(modifier: Modifier, viewModel: ExerciseViewModel) {
     val broadcastReceiver = remember {
         object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                Log.d("ExerciseMap", "onReceive")
-                val lat = intent?.getDoubleExtra("lat", 0.0)
-                val lng = intent?.getDoubleExtra("lng", 0.0)
-                if (lat != null && lng != null) {
-                    viewModel.addPath(LatLng(lat, lng))
-                    viewModel.setCameraPositionState(
-                        CameraPositionState(
-                            CameraPosition.fromLatLngZoom(
-                                LatLng(lat, lng),
-                                17f
+                Log.d("ExerciseMap", "onReceive: ${intent?.action}")
+                when (intent?.action) {
+                    "STEP_UPDATE" -> {
+                        val step = intent.getIntExtra("step", 0)
+                        viewModel.addStep(step)
+                    }
+
+                    "LOCATION_UPDATE" -> {
+                        val lat = intent.getDoubleExtra("lat", 0.0)
+                        val lng = intent.getDoubleExtra("lng", 0.0)
+                        viewModel.addPath(LatLng(lat, lng))
+                        viewModel.setCameraPositionState(
+                            CameraPositionState(
+                                CameraPosition.fromLatLngZoom(
+                                    LatLng(lat, lng),
+                                    17f
+                                )
                             )
                         )
-                    )
+                    }
                 }
             }
         }

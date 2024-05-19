@@ -9,6 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.walktalk.stride.presentation.analysis.AnalysisScreen
 import com.walktalk.stride.presentation.exercise.ExerciseScreen
+import com.walktalk.stride.presentation.exercise.ExerciseSummaryScreen
+import com.walktalk.stride.presentation.exercise.ExerciseViewModel
 import com.walktalk.stride.presentation.login.LoginScreen
 import com.walktalk.stride.presentation.main.MainScreen
 import com.walktalk.stride.presentation.signup.SignupGenderAgeScreen
@@ -22,7 +24,8 @@ fun NavGraph(
     startDestination: String
 ) {
     lateinit var signupViewModel: SignupViewModel
-    NavHost(
+    lateinit var exerciseViewModel: ExerciseViewModel
+            NavHost(
         navController = navController,
         startDestination = startDestination,
     ) {
@@ -33,7 +36,7 @@ fun NavGraph(
             signupViewModel = viewModel()
             SignupGenderAgeScreen(
                 navController = navController,
-                viewModel = viewModel()
+                viewModel = signupViewModel
             )
         }
         composable(route = Screen.SignupNickname.route) {
@@ -50,11 +53,15 @@ fun NavGraph(
             arguments = listOf(navArgument("exerciseType") { type = NavType.StringType })
         ) { entry ->
             val exerciseType = entry.arguments?.getString("exerciseType") ?: "default"
+            exerciseViewModel = viewModel()
             ExerciseScreen(
                 navController = navController,
-                viewModel = viewModel(),
+                viewModel = exerciseViewModel,
                 exerciseType = exerciseType
             )
+        }
+        composable(route = Screen.ExerciseSummary.route) {
+            ExerciseSummaryScreen(navController = navController, viewModel = exerciseViewModel)
         }
         composable(route = Screen.Together.route) {
             TogetherScreen(
