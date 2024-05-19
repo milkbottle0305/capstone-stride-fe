@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
                     startDestination =
                         LoginUtils.autoLogin(
                             context = this@MainActivity,
-                            navController = navController
                         )
                 }
 

@@ -27,7 +27,9 @@ fun lightColors() = StrideColors(
     disableButtonTextPrimary = White,
     navigationBackground = White,
     navigationSelected = Brown700,
-    navigationUnselected = Gray500,
+    navigationUnselected = Gray300,
+    progressBackground = Gray300,
+    progressIndicator = Brown700,
     isLight = true
 )
 
@@ -52,6 +54,8 @@ fun darkColors() = StrideColors(
     navigationBackground = White,
     navigationSelected = Brown700,
     navigationUnselected = Gray700,
+    progressBackground = Gray300,
+    progressIndicator = Brown700,
     isLight = false
 )
 

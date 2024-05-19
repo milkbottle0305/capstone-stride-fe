@@ -1,6 +1,5 @@
 package com.walktalk.stride.presentation.signup
 
-import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
@@ -38,7 +37,6 @@ import com.walktalk.stride.data.model.ApiState
 import com.walktalk.stride.presentation.navigation.Screen
 import com.walktalk.stride.ui.theme.StrideTheme
 
-@SuppressLint("ShowToast")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignupNicknameScreen(

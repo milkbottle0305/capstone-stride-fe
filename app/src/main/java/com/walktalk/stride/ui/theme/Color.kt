@@ -41,6 +41,8 @@ class StrideColors(
     navigationBackground: Color,
     navigationSelected: Color,
     navigationUnselected: Color,
+    progressBackground: Color,
+    progressIndicator: Color,
     isLight: Boolean,
 ) {
     var primary by mutableStateOf(primary)
@@ -83,6 +85,10 @@ class StrideColors(
         private set
     var navigationUnselected by mutableStateOf(navigationUnselected)
         private set
+    var progressBackground by mutableStateOf(progressBackground)
+        private set
+    var progressIndicator by mutableStateOf(progressIndicator)
+        private set
     var isLight by mutableStateOf(isLight)
         private set
 
@@ -107,6 +113,8 @@ class StrideColors(
         navigationBackground: Color = this.navigationBackground,
         navigationSelected: Color = this.navigationSelected,
         navigationUnselected: Color = this.navigationUnselected,
+        progressBackground: Color = this.progressBackground,
+        progressIndicator: Color = this.progressIndicator,
         isLight: Boolean = this.isLight,
     ) = StrideColors(
         primary = primary,
@@ -129,6 +137,8 @@ class StrideColors(
         navigationBackground = navigationBackground,
         navigationSelected = navigationSelected,
         navigationUnselected = navigationUnselected,
+        progressBackground = progressBackground,
+        progressIndicator = progressIndicator,
         isLight = isLight,
     )
 
@@ -153,6 +163,8 @@ class StrideColors(
         navigationBackground = other.navigationBackground
         navigationSelected = other.navigationSelected
         navigationUnselected = other.navigationUnselected
+        progressBackground = other.progressBackground
+        progressIndicator = other.progressIndicator
         isLight = other.isLight
     }
 }

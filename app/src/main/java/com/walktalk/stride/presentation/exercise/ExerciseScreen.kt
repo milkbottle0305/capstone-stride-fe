@@ -3,6 +3,7 @@ package com.walktalk.stride.presentation.exercise
 import android.Manifest
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -24,6 +24,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.walktalk.stride.R
 import com.walktalk.stride.presentation.exercise.components.ExerciseMap
+import com.walktalk.stride.presentation.exercise.components.ProgressBar
 import com.walktalk.stride.presentation.exercise.components.StopButton
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -36,10 +37,18 @@ fun ExerciseScreen(
     val context = LocalContext.current
     val permissionErrorString = stringResource(id = R.string.permission_error)
 
-    val permissions = listOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_COARSE_LOCATION
-    )
+    val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        listOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION
+        )
+    } else {
+        listOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+    }
     // 위치 권한 상태를 관리합니다.
     val permissionState = rememberMultiplePermissionsState(
         permissions = permissions
@@ -65,21 +74,29 @@ fun ExerciseScreen(
                 }
             }
 
-        LaunchedEffect(permissionState) {
+        LaunchedEffect(Unit) {
             requestPermissionLauncher.launch(permissions.toTypedArray())
         }
     } else {
-        Column(modifier = Modifier.fillMaxSize()) {
-            ExerciseMap(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 150.dp),
-                viewModel = viewModel
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            StopButton(modifier = Modifier.align(Alignment.End), viewModel = viewModel)
-        }
+        ExerciseContent(viewModel)
     }
 }
 
-
+@Composable
+fun ExerciseContent(viewModel: ExerciseViewModel) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        ExerciseMap(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(700.dp),
+            viewModel = viewModel
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        ProgressBar(viewModel.process)
+        Spacer(modifier = Modifier.height(20.dp))
+        StopButton(modifier = Modifier.align(Alignment.End), viewModel = viewModel)
+    }
+}

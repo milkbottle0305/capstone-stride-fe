@@ -1,7 +1,6 @@
 package com.walktalk.stride.utils
 
 import android.content.Context
-import androidx.navigation.NavController
 import com.walktalk.stride.data.datasource.SharedPreferences
 import com.walktalk.stride.data.dto.request.LoginRequest
 import com.walktalk.stride.data.repository.LoginRepository
@@ -14,7 +13,7 @@ object LoginUtils {
     private const val TAG = "LoginUtils"
     private val loginRepository = LoginRepository()
 
-    suspend fun autoLogin(context: Context, navController: NavController): String {
+    suspend fun autoLogin(context: Context): String {
         return CoroutineScope(Dispatchers.Main).async {
             var returnRoute = Screen.Login.route
             val kakaoUserId = SharedPreferences(context).getStringPref("kakaoUserId")
