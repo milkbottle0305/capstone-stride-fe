@@ -3,12 +3,15 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
-    namespace 'com.walkingtalking.stride'
+    namespace 'com.walktalk.stride'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.walkingtalking.stride"
+        applicationId "com.walktalk.stride"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -18,6 +21,9 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        buildConfigField "String", "KAKAO_API_KEY", properties["KAKAO_API_KEY"]
+        resValue "string", "KAKAO_REDIRECT_URI", properties["KAKAO_REDIRECT_URI"]
+        resValue "string", "GOOGLE_MAP_API_KEY", properties["GOOGLE_MAP_API_KEY"]
     }
 
     buildTypes {
@@ -34,6 +40,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        buildConfig = true
         compose true
     }
     composeOptions {
@@ -47,7 +54,6 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
@@ -57,10 +63,39 @@ dependencies {
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.databinding:databinding-runtime:7.1.2'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
+    implementation "androidx.navigation:navigation-compose:2.5.3"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
+    // Retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Google Map
+    implementation 'com.google.maps.android:maps-compose:2.11.4'
+    implementation 'com.google.android.gms:play-services-maps:18.2.0'
+
+    // Permission Check
+    implementation("com.google.accompanist:accompanist-permissions:0.25.0")
+
+
+    // Kakao Login
+    implementation "com.kakao.sdk:v2-user:2.12.1"
+
+    // Chart
+    implementation("com.patrykandpatrick.vico:compose:1.7.0")
+    implementation("com.patrykandpatrick.vico:compose-m3:1.7.0")
+    implementation("com.patrykandpatrick.vico:core:1.7.0")
+    implementation("com.patrykandpatrick.vico:views:1.7.0")
+
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
