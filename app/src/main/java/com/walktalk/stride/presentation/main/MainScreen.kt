@@ -171,7 +171,7 @@ fun MainScreen(
         ) {
             Surface(
                 modifier = Modifier.fillMaxSize(),
-                color = StrideTheme.colors.backgroundPrimary
+                color = StrideTheme.colors.surface
             ) {
                 Column(
                     modifier = Modifier.padding(horizontal = 10.dp),
@@ -188,7 +188,7 @@ fun MainScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable { isGoalClicked.value = true },
-                        color = StrideTheme.colors.backgroundSecondary,
+                        color = StrideTheme.colors.containerPrimary,
                         shape = RoundedCornerShape(16.dp),
                         shadowElevation = 4.dp
                     ) {
@@ -268,7 +268,7 @@ fun MainScreen(
                     ) {
                         items(roomList.size) {
                             Surface(
-                                color = StrideTheme.colors.backgroundSecondary,
+                                color = StrideTheme.colors.containerPrimary,
                                 shape = RoundedCornerShape(10.dp),
                                 shadowElevation = 4.dp,
                             ) {
@@ -330,7 +330,7 @@ fun MainScreen(
                     Surface(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        color = StrideTheme.colors.backgroundSecondary,
+                        color = StrideTheme.colors.containerPrimary,
                         shape = RoundedCornerShape(16.dp),
                         shadowElevation = 4.dp
                     ) {

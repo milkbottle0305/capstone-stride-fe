@@ -80,7 +80,7 @@ fun SignupNicknameScreen(
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = StrideTheme.colors.backgroundPrimary
+        color = StrideTheme.colors.surface
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -92,7 +92,7 @@ fun SignupNicknameScreen(
                 Text(
                     text = stringResource(R.string.signup_nickname_guide),
                     modifier = Modifier.align(Alignment.Start),
-                    color = StrideTheme.colors.textSecondary,
+                    color = StrideTheme.colors.textPrimary,
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                 )
@@ -110,11 +110,13 @@ fun SignupNicknameScreen(
                     placeholder = {
                         Text(
                             stringResource(id = R.string.signup_nickname_hint),
-                            color = StrideTheme.colors.hint,
+                            color = StrideTheme.colors.textFieldHint
                         )
                     },
-                    colors = TextFieldDefaults.textFieldColors(
-                        containerColor = StrideTheme.colors.backgroundSecondary,
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = StrideTheme.colors.textFieldPrimary,
+                        unfocusedContainerColor = StrideTheme.colors.textFieldPrimary,
+                        disabledContainerColor = StrideTheme.colors.textFieldPrimary,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
@@ -124,7 +126,7 @@ fun SignupNicknameScreen(
                 )
                 Text(
                     stringResource(id = R.string.signup_nickname_policy),
-                    color = StrideTheme.colors.hint,
+                    color = StrideTheme.colors.textFieldHint,
                     fontSize = 16.sp,
                 )
                 Spacer(
@@ -141,8 +143,8 @@ fun SignupNicknameScreen(
                     colors = ButtonDefaults.buttonColors(
                         containerColor = StrideTheme.colors.buttonPrimary,
                         contentColor = StrideTheme.colors.buttonTextPrimary,
-                        disabledContainerColor = StrideTheme.colors.disableButtonPrimary,
-                        disabledContentColor = StrideTheme.colors.disableButtonTextPrimary,
+                        disabledContainerColor = StrideTheme.colors.buttonDisabledPrimary,
+                        disabledContentColor = StrideTheme.colors.buttonDisabledTextPrimary,
                     ),
                 ) {
                     Text(

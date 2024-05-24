@@ -25,7 +25,7 @@ fun StrideNavigationBar(navController: NavController) {
     )
     NavigationBar(
         modifier = Modifier,
-        containerColor = StrideTheme.colors.navigationBackground
+        containerColor = StrideTheme.colors.navBackground
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -50,9 +50,9 @@ fun StrideNavigationBar(navController: NavController) {
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = StrideTheme.colors.navigationSelected,
-                    unselectedIconColor = StrideTheme.colors.navigationUnselected,
-                    indicatorColor = StrideTheme.colors.navigationBackground,
+                    selectedIconColor = StrideTheme.colors.navSelected,
+                    unselectedIconColor = StrideTheme.colors.navUnselected,
+                    indicatorColor = StrideTheme.colors.navBackground,
                 )
             )
         }

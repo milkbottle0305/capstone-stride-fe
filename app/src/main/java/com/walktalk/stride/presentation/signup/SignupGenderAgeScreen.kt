@@ -64,7 +64,7 @@ fun SignupGenderAgeScreen(
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = colors.backgroundPrimary
+        color = colors.surface
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -74,14 +74,14 @@ fun SignupGenderAgeScreen(
             ) {
                 Text(
                     text = stringResource(R.string.signup_gender_age_guide),
-                    color = colors.textSecondary,
+                    color = colors.textPrimary,
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Start,
                 )
                 Text(
                     text = stringResource(R.string.signup_policy),
-                    color = colors.textSecondary,
+                    color = colors.textPrimary,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                 )
@@ -90,7 +90,7 @@ fun SignupGenderAgeScreen(
                 )
                 Text(
                     text = stringResource(R.string.signup_gender_guide),
-                    color = colors.textSecondary,
+                    color = colors.textPrimary,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                 )
@@ -107,12 +107,12 @@ fun SignupGenderAgeScreen(
                                     .width(130.dp)
                                     .height(130.dp)
                                     .background(
-                                        color = if (genderIndex == it) colors.primary else colors.backgroundPrimary,
+                                        color = if (genderIndex == it) colors.buttonPrimary else colors.buttonSecondary,
                                         shape = CircleShape
                                     )
                                     .border(
                                         1.dp,
-                                        color = if (genderIndex == it) colors.textTertiary else colors.textSecondary,
+                                        color = if (genderIndex == it) colors.buttonBorderPrimary else colors.buttonBorderSecondary,
                                         shape = CircleShape
                                     )
                                     .clip(CircleShape)
@@ -121,7 +121,7 @@ fun SignupGenderAgeScreen(
                             ) {
                                 Text(
                                     text = genders[it],
-                                    color = if (genderIndex == it) colors.textTertiary else colors.textSecondary,
+                                    color = if (genderIndex == it) colors.buttonTextPrimary else colors.buttonTextSecondary,
                                     fontSize = 24.sp,
                                     fontWeight = FontWeight.Bold,
                                     textAlign = TextAlign.Center,
@@ -135,7 +135,7 @@ fun SignupGenderAgeScreen(
                 )
                 Text(
                     text = stringResource(R.string.signup_age_guide),
-                    color = colors.textSecondary,
+                    color = colors.textPrimary,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                 )
@@ -158,16 +158,16 @@ fun SignupGenderAgeScreen(
                                 shape = RoundedCornerShape(16.dp),
                                 border = BorderStroke(
                                     1.dp,
-                                    if (ageIndex == it) colors.textTertiary else colors.textSecondary,
+                                    if (ageIndex == it) colors.buttonBorderPrimary else colors.buttonBorderSecondary,
                                 ),
-                                color = if (ageIndex == it) colors.primary else colors.backgroundPrimary,
+                                color = if (ageIndex == it) colors.buttonPrimary else colors.buttonSecondary,
                             ) {
                                 Box(
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Text(
                                         text = ageRanges[it],
-                                        color = if (ageIndex == it) colors.textTertiary else colors.textSecondary,
+                                        color = if (ageIndex == it) colors.buttonTextPrimary else colors.buttonTextSecondary,
                                         fontSize = 20.sp,
                                         fontWeight = FontWeight.Bold,
                                         textAlign = TextAlign.Center
@@ -187,8 +187,8 @@ fun SignupGenderAgeScreen(
                     colors = ButtonDefaults.buttonColors(
                         containerColor = colors.buttonPrimary,
                         contentColor = colors.buttonTextPrimary,
-                        disabledContainerColor = colors.disableButtonPrimary,
-                        disabledContentColor = colors.disableButtonTextPrimary,
+                        disabledContainerColor = colors.buttonDisabledPrimary,
+                        disabledContentColor = colors.buttonDisabledTextPrimary,
                     ),
                     onClick = {
                         navController.navigate(Screen.SignupNickname.route)

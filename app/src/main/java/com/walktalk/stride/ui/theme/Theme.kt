@@ -7,6 +7,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 
 fun lightColors() = StrideColors(
+    surface = Brown100,
     buttonPrimary = Brown700,
     buttonTextPrimary = White,
     buttonBorderPrimary = Brown700,
@@ -39,6 +40,7 @@ fun lightColors() = StrideColors(
     textFieldSecondary = White,
     textFieldTextSecondary = Black,
     textFieldBorderSecondary = Gray300,
+    textFieldHint = Gray500,
     navBackground = White,
     navSelected = Brown700,
     navUnselected = Gray500,

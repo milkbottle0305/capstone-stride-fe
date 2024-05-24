@@ -35,7 +35,7 @@ fun ProgressBar(progress: Float) {
                 .width(280.dp)
                 .height(20.dp)
                 .clip(RoundedCornerShape(5.dp)),
-            color = StrideTheme.colors.progressIndicator,
+            color = StrideTheme.colors.progress,
             trackColor = StrideTheme.colors.progressBackground,
         )
     }

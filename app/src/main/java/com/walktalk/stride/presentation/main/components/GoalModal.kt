@@ -27,7 +27,7 @@ import com.walktalk.stride.ui.theme.StrideTheme
 @Composable
 fun GoalModal(distance: Int, speed: Double, step: Int, onClick: () -> Unit) {
     Surface(
-        color = StrideTheme.colors.backgroundPrimary,
+        color = StrideTheme.colors.containerPrimary,
         shape = RoundedCornerShape(10.dp)
     ) {
         Column(

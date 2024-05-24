@@ -31,7 +31,7 @@ fun SummaryInfoButton(
             .padding(vertical = 20.dp)
             .clip(RoundedCornerShape(10.dp))
             .clickable { onClick() },
-        color = if (isClicked) StrideTheme.colors.backgroundTertiary else StrideTheme.colors.backgroundSecondary
+        color = if (isClicked) StrideTheme.colors.exerciseContainerSelected else StrideTheme.colors.exerciseContainerUnselected
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
@@ -40,7 +40,7 @@ fun SummaryInfoButton(
                 title,
                 textAlign = TextAlign.Center,
                 fontSize = 25.sp,
-                color = if (isClicked) StrideTheme.colors.backgroundSecondary else StrideTheme.colors.textPrimary
+                color = if (isClicked) StrideTheme.colors.exerciseContainerTextPrimarySelected else StrideTheme.colors.exerciseContainerTextPrimaryUnselected
 
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -49,7 +49,7 @@ fun SummaryInfoButton(
                 textAlign = TextAlign.Center,
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
-                color = if (isClicked) StrideTheme.colors.backgroundSecondary else StrideTheme.colors.textSecondary
+                color = if (isClicked) StrideTheme.colors.exerciseContainerTextPrimarySelected else StrideTheme.colors.exerciseContainerTextSecondaryUnselected
             )
         }
     }

@@ -25,6 +25,7 @@ val LevelOrange = Color(0xffF58220)
 val LevelBlue = Color(0xff2BA3DE)
 
 class StrideColors(
+    surface: Color,
     buttonPrimary: Color,
     buttonTextPrimary: Color,
     buttonBorderPrimary: Color,
@@ -57,6 +58,7 @@ class StrideColors(
     textFieldSecondary: Color,
     textFieldTextSecondary: Color,
     textFieldBorderSecondary: Color,
+    textFieldHint: Color,
     navBackground: Color,
     navSelected: Color,
     navUnselected: Color,
@@ -70,6 +72,8 @@ class StrideColors(
     error: Color,
     isLight: Boolean
 ) {
+    var surface by mutableStateOf(surface)
+        private set
     var buttonPrimary by mutableStateOf(buttonPrimary)
         private set
     var buttonTextPrimary by mutableStateOf(buttonTextPrimary)
@@ -138,6 +142,8 @@ class StrideColors(
         private set
     var textFieldBorderSecondary by mutableStateOf(textFieldBorderSecondary)
         private set
+    var textFieldHint by mutableStateOf(textFieldHint)
+        private set
     var navBackground by mutableStateOf(navBackground)
         private set
     var navSelected by mutableStateOf(navSelected)
@@ -165,6 +171,7 @@ class StrideColors(
 
 
     fun copy(
+        surface: Color = this.surface,
         buttonPrimary: Color = this.buttonPrimary,
         buttonTextPrimary: Color = this.buttonTextPrimary,
         buttonBorderPrimary: Color = this.buttonBorderPrimary,
@@ -197,6 +204,7 @@ class StrideColors(
         textFieldSecondary: Color = this.textFieldSecondary,
         textFieldTextSecondary: Color = this.textFieldTextSecondary,
         textFieldBorderSecondary: Color = this.textFieldBorderSecondary,
+        textFieldHint: Color = this.textFieldHint,
         navBackground: Color = this.navBackground,
         navSelected: Color = this.navSelected,
         navUnselected: Color = this.navUnselected,
@@ -210,6 +218,7 @@ class StrideColors(
         error: Color = this.error,
         isLight: Boolean = this.isLight
     ) = StrideColors(
+        surface = surface,
         buttonPrimary,
         buttonTextPrimary,
         buttonBorderPrimary,
@@ -242,6 +251,7 @@ class StrideColors(
         textFieldSecondary,
         textFieldTextSecondary,
         textFieldBorderSecondary,
+        textFieldHint,
         navBackground,
         navSelected,
         navUnselected,
@@ -257,6 +267,7 @@ class StrideColors(
     )
 
     fun updateColorsFrom(other: StrideColors) {
+        surface = other.surface
         buttonPrimary = other.buttonPrimary
         buttonTextPrimary = other.buttonTextPrimary
         buttonBorderPrimary = other.buttonBorderPrimary
@@ -289,6 +300,7 @@ class StrideColors(
         textFieldSecondary = other.textFieldSecondary
         textFieldTextSecondary = other.textFieldTextSecondary
         textFieldBorderSecondary = other.textFieldBorderSecondary
+        textFieldHint = other.textFieldHint
         navBackground = other.navBackground
         navSelected = other.navSelected
         navUnselected = other.navUnselected

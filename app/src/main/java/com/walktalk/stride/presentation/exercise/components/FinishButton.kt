@@ -26,12 +26,12 @@ fun CompleteButton(modifier: Modifier, enabled: Boolean, onClick: () -> Unit) {
                 if (enabled)
                     onClick()
             },
-        color = if (enabled) StrideTheme.colors.buttonPrimary else StrideTheme.colors.disableButtonPrimary
+        color = if (enabled) StrideTheme.colors.buttonPrimary else StrideTheme.colors.buttonDisabledPrimary
     ) {
         Text(
             modifier = Modifier.padding(vertical = 10.dp, horizontal = 19.dp),
             text = stringResource(id = R.string.exercise_stop),
-            color = StrideTheme.colors.textTertiary,
+            color = StrideTheme.colors.buttonTextPrimary,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
         )

@@ -71,7 +71,7 @@ fun ExerciseSummaryScreen(navController: NavController, viewModel: ExerciseViewM
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = StrideTheme.colors.backgroundPrimary)
+            .background(color = StrideTheme.colors.surface)
             .verticalScroll(scrollState),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

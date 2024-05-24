@@ -24,7 +24,7 @@ fun TogetherScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it),
-            color = StrideTheme.colors.backgroundPrimary,
+            color = StrideTheme.colors.surface,
         ) {
         }
     }

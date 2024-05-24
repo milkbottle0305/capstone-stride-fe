@@ -16,11 +16,8 @@ fun SummaryInfoChart(data: List<Number>) {
     val producer = ChartEntryModelProducer(chartEntryList)
     val lineSpec = listOf(
         LineChart.LineSpec(
-            lineColor = StrideTheme.colors.primary.toArgb()
+            lineColor = StrideTheme.colors.progress.toArgb()
         ),
-        LineChart.LineSpec(
-            lineColor = StrideTheme.colors.error.toArgb()
-        )
     )
     Chart(
         chart = LineChart(
@@ -28,10 +25,4 @@ fun SummaryInfoChart(data: List<Number>) {
         ),
         chartModelProducer = producer,
     )
-}
-
-@Preview
-@Composable
-fun SummaryInfoChartPreview() {
-    SummaryInfoChart(data = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 }
