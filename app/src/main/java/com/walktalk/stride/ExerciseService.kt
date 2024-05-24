@@ -16,6 +16,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -25,6 +26,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
+import kotlin.properties.Delegates
 
 class ExerciseService : Service(), SensorEventListener {
 
@@ -35,7 +37,13 @@ class ExerciseService : Service(), SensorEventListener {
     private var step: Int = 0
     private var latLng: LatLng = LatLng(0.0, 0.0)
     private lateinit var handler: Handler
-    private val delayMillis: Long = 5000
+    private val delayMillis: Long = 20000
+    private val firstMillis: Long = 100
+    private var isStart: Boolean by Delegates.observable(false) { _, oldValue, newValue ->
+        if (!oldValue && newValue) {
+            handler.post(delayMillisRunnable)
+        }
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -56,21 +64,23 @@ class ExerciseService : Service(), SensorEventListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundServiceNotification()
         }
-        handler.postDelayed(delayMillisRunnable, delayMillis)
+        Log.d("ExerciseService", "onCreate")
     }
 
     private fun startLocationUpdates() {
         val locationRequest = LocationRequest.create().apply {
             interval = delayMillis
             fastestInterval = delayMillis
-            priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.lastLocation?.let {
                     latLng = LatLng(it.latitude, it.longitude)
+                    Log.d("ExerciseService", "Location: $latLng")
                 }
+                isStart = true
             }
         }
 
@@ -115,6 +125,7 @@ class ExerciseService : Service(), SensorEventListener {
 
     private val delayMillisRunnable = object : Runnable {
         override fun run() {
+            Log.d("ExerciseService", "Step: $step, Location: $latLng")
             val stepIntent = Intent("STEP_UPDATE").apply {
                 putExtra("step", step)
             }

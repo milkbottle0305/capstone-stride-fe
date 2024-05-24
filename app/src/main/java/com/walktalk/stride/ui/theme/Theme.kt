@@ -14,7 +14,7 @@ fun lightColors() = StrideColors(
     quaternary = Pink,
     backgroundPrimary = Brown100,
     backgroundSecondary = Brown500,
-    backgroundTertiary = Brown500,
+    backgroundTertiary = Brown700,
     error = Red,
     hint = Gray700,
     textPrimary = Black,
@@ -66,7 +66,7 @@ fun StrideTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val currentColor = remember { if (darkColors != null && darkTheme) darkColors else colors }
+    val currentColor = remember { if (darkTheme) darkColors else colors }
     val rememberedColors = remember { currentColor.copy() }.apply { updateColorsFrom(currentColor) }
     CompositionLocalProvider(
         LocalColors provides rememberedColors,

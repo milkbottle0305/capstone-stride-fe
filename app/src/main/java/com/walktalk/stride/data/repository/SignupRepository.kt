@@ -6,6 +6,11 @@ import com.walktalk.stride.data.dto.request.UserDataRequest
 class SignupRepository {
     private val dataSource = RemoteDataSource()
 
-    suspend fun setUserData(request: UserDataRequest): UserDataRequest =
-        dataSource.setUserData(request)
+    suspend fun setUserData(request: UserDataRequest): UserDataRequest {
+        try {
+            return dataSource.setUserData(request)
+        } catch (e: Exception) {
+            throw Exception(e.message)
+        }
+    }
 }

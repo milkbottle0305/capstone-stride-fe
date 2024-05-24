@@ -11,7 +11,9 @@ import com.walktalk.stride.data.repository.SignupRepository
 import kotlinx.coroutines.launch
 
 class SignupViewModel : ViewModel() {
-    private val TAG = "SignupViewModel"
+    companion object {
+        private const val TAG = "SignupViewModel"
+    }
 
     private val signupRepository = SignupRepository()
     private val _genderIndex = mutableStateOf<Int?>(null)
@@ -88,6 +90,7 @@ class SignupViewModel : ViewModel() {
                     _setUserDataApiState.value = ApiState.Error("Failed to set user data")
                 }
             } catch (e: Exception) {
+                Log.e(TAG, e.message ?: "An unknown error occurred")
                 _setUserDataApiState.value =
                     ApiState.Error(e.message ?: "An unknown error occurred")
             }

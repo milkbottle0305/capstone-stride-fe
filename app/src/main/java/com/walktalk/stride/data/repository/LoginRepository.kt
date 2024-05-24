@@ -6,5 +6,11 @@ import com.walktalk.stride.data.dto.response.LoginResponse
 
 class LoginRepository {
     private val dataSource = RemoteDataSource()
-    suspend fun login(request: LoginRequest): LoginResponse = dataSource.login(request)
+    suspend fun login(request: LoginRequest): LoginResponse {
+        try {
+            return dataSource.login(request)
+        } catch (e: Exception) {
+            throw Exception(e.message)
+        }
+    }
 }

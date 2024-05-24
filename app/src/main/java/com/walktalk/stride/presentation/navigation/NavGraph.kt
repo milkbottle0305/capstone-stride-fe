@@ -1,11 +1,14 @@
 package com.walktalk.stride.presentation.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import com.walktalk.stride.presentation.analysis.AnalysisScreen
 import com.walktalk.stride.presentation.exercise.ExerciseScreen
@@ -18,6 +21,7 @@ import com.walktalk.stride.presentation.signup.SignupNicknameScreen
 import com.walktalk.stride.presentation.signup.SignupViewModel
 import com.walktalk.stride.presentation.together.TogetherScreen
 
+@SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun NavGraph(
     navController: NavHostController,
@@ -25,7 +29,7 @@ fun NavGraph(
 ) {
     lateinit var signupViewModel: SignupViewModel
     lateinit var exerciseViewModel: ExerciseViewModel
-            NavHost(
+    NavHost(
         navController = navController,
         startDestination = startDestination,
     ) {
@@ -48,20 +52,32 @@ fun NavGraph(
         composable(route = Screen.Main.route) {
             MainScreen(navController = navController, viewModel = viewModel())
         }
-        composable(
-            route = Screen.Exercise.route,
-            arguments = listOf(navArgument("exerciseType") { type = NavType.StringType })
-        ) { entry ->
-            val exerciseType = entry.arguments?.getString("exerciseType") ?: "default"
-            exerciseViewModel = viewModel()
-            ExerciseScreen(
-                navController = navController,
-                viewModel = exerciseViewModel,
-                exerciseType = exerciseType
-            )
-        }
-        composable(route = Screen.ExerciseSummary.route) {
-            ExerciseSummaryScreen(navController = navController, viewModel = exerciseViewModel)
+        navigation(
+            route = "exercise",
+            startDestination = Screen.Exercise.route
+        ) {
+            composable(
+                route = Screen.Exercise.route,
+                arguments = listOf(navArgument("exerciseType") { type = NavType.StringType })
+            ) { entry ->
+                val exerciseType = entry.arguments?.getString("exerciseType") ?: "default"
+                val exerciseBackStackEntry = remember {
+                    navController.getBackStackEntry("exercise")
+                }
+                exerciseViewModel = viewModel(exerciseBackStackEntry)
+                ExerciseScreen(
+                    navController = navController,
+                    viewModel = exerciseViewModel,
+                    exerciseType = exerciseType
+                )
+            }
+            composable(route = Screen.ExerciseSummary.route) {
+                val exerciseBackStackEntry = remember {
+                    navController.getBackStackEntry("exercise")
+                }
+                exerciseViewModel = viewModel(exerciseBackStackEntry)
+                ExerciseSummaryScreen(navController = navController, viewModel = exerciseViewModel)
+            }
         }
         composable(route = Screen.Together.route) {
             TogetherScreen(

@@ -90,6 +90,12 @@ dependencies {
     // Kakao Login
     implementation "com.kakao.sdk:v2-user:2.12.1"
 
+    // Chart
+    implementation("com.patrykandpatrick.vico:compose:1.7.0")
+    implementation("com.patrykandpatrick.vico:compose-m3:1.7.0")
+    implementation("com.patrykandpatrick.vico:core:1.7.0")
+    implementation("com.patrykandpatrick.vico:views:1.7.0")
+
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'

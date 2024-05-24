@@ -75,26 +75,30 @@ class LoginViewModel(
                 SharedPreferences(context).setStringPref("kakaoUserId", kakaoUserId)
                 viewModelScope.launch {
                     val request = LoginRequest("kakao", kakaoUserId)
-                    val response = loginRepository.login(request)
-                    SharedPreferences(context).setStringPref("accessToken", response.accessToken)
-                    SharedPreferences(context).setStringPref("refreshToken", response.refreshToken)
-                    if (response.needInitialization) {
-                        _loginApiState.value = ApiState.Success("카카오톡 로그인 성공: 초기화 필요")
-                    } else {
-                        _loginApiState.value = ApiState.Success("카카오톡 로그인 성공: 초기화 불필요")
+                    try {
+                        val response = loginRepository.login(request)
+                        SharedPreferences(context).setStringPref(
+                            "accessToken",
+                            response.accessToken
+                        )
+                        SharedPreferences(context).setStringPref(
+                            "refreshToken",
+                            response.refreshToken
+                        )
+                        if (response.needInitialization) {
+                            _loginApiState.value = ApiState.Success("카카오톡 로그인 성공: 초기화 필요")
+                        } else {
+                            _loginApiState.value = ApiState.Success("카카오톡 로그인 성공: 초기화 불필요")
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, e.message.toString())
+                        _loginApiState.value = ApiState.Error("카카오톡 로그인 실패")
                     }
-                    Log.d(
-                        TAG,
-                        "accessToken: ${SharedPreferences(context).getStringPref("accessToken")}\n" +
-                                "refreshToken: ${SharedPreferences(context).getStringPref("refreshToken")}\n" +
-                                "kakaoUserId: $kakaoUserId"
-                    )
-                    _loginApiState.value = ApiState.Error("카카오톡 로그인 성공")
                 }
             }
         }
     }
-    
+
     fun googleLogin() {
         viewModelScope.launch {
             // TODO: 구글 로그인

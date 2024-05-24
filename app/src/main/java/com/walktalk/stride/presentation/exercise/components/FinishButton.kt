@@ -14,19 +14,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.walktalk.stride.R
-import com.walktalk.stride.presentation.exercise.ExerciseViewModel
 import com.walktalk.stride.ui.theme.StrideTheme
 
 @Composable
-fun StopButton(modifier: Modifier, viewModel: ExerciseViewModel, onClick: () -> Unit) {
+fun CompleteButton(modifier: Modifier, enabled: Boolean, onClick: () -> Unit) {
     val context = LocalContext.current
     Surface(
         modifier = modifier
             .clip(shape = RoundedCornerShape(10.dp))
             .clickable {
-                onClick()
+                if (enabled)
+                    onClick()
             },
-        color = StrideTheme.colors.buttonPrimary
+        color = if (enabled) StrideTheme.colors.buttonPrimary else StrideTheme.colors.disableButtonPrimary
     ) {
         Text(
             modifier = Modifier.padding(vertical = 10.dp, horizontal = 19.dp),
