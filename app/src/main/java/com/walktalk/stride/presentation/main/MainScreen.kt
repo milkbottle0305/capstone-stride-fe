@@ -174,15 +174,15 @@ fun MainContent(
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
                                     Text(
-                                        text = "%,d".format(todayGoal.currentDistance),
+                                        text = "%,d".format(todayGoal.currentStride),
                                         color = StrideTheme.colors.textPrimary,
                                         fontSize = 25.sp,
                                         fontWeight = FontWeight.Bold,
                                     )
                                     Text(
                                         text = stringResource(
-                                            R.string.distance_unit,
-                                            todayGoal.goalDistance
+                                            R.string.stride_unit,
+                                            todayGoal.goalStride
                                         ),
                                         color = StrideTheme.colors.textPrimary,
                                         fontSize = 12.sp,
@@ -486,7 +486,7 @@ fun MainContent(
                         GoalModal(
                             allComplete = todayGoal.allComplete,
                             level = todayGoal.level,
-                            distance = todayGoal.goalDistance,
+                            stride = todayGoal.goalStride,
                             speed = todayGoal.goalSpeed,
                             step = todayGoal.goalStep
                         ) {

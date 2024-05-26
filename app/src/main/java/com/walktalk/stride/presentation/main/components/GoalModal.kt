@@ -27,7 +27,7 @@ import com.walktalk.stride.ui.theme.StrideTheme
 fun GoalModal(
     allComplete: Boolean,
     level: Int,
-    distance: Int,
+    stride: Int,
     speed: Double,
     step: Int,
     onClick: () -> Unit
@@ -73,13 +73,13 @@ fun GoalModal(
             Spacer(modifier = Modifier.height(36.dp))
             Row {
                 Text(
-                    text = stringResource(id = R.string.distance),
+                    text = stringResource(id = R.string.stride),
                     fontSize = 20.sp,
                     color = StrideTheme.colors.textPrimary
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(
-                    text = stringResource(id = R.string.distance_unit, distance),
+                    text = stringResource(id = R.string.stride_unit, stride),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = StrideTheme.colors.textSecondary

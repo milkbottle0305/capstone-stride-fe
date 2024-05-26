@@ -5,7 +5,7 @@ import com.walktalk.stride.data.model.TodayGoal
 
 data class TodayGoalResponse(
     val level: Int,
-    val distance: TodayIntData,
+    val stride: TodayIntData,
     val speed: TodayDoubleData,
     val step: TodayIntData,
     @SerializedName("all_complete")
@@ -28,8 +28,8 @@ data class TodayDoubleData(
 
 fun TodayGoalResponse.toTodayGoal() = TodayGoal(
     level = level,
-    currentDistance = distance.todayCurrent,
-    goalDistance = distance.todayGoal,
+    currentStride = stride.todayCurrent,
+    goalStride = stride.todayGoal,
     currentSpeed = speed.todayCurrent,
     goalSpeed = speed.todayGoal,
     currentStep = step.todayCurrent,
