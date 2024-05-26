@@ -79,7 +79,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = StrideTheme.colors.backgroundPrimary
+        color = StrideTheme.colors.surface
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -100,7 +100,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
                         top = 13.dp
                     ),
                     text = "거닐다",
-                    color = StrideTheme.colors.textPrimary,
+                    color = StrideTheme.colors.textSecondary,
                     fontWeight = FontWeight.Bold,
                     fontSize = 60.sp,
                 )

@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.walktalk.stride.presentation.components.StrideNavigationBar
+import com.walktalk.stride.ui.theme.StrideTheme
 
 @Composable
 fun AnalysisScreen(navController: NavController) {
@@ -22,7 +23,8 @@ fun AnalysisScreen(navController: NavController) {
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
+                .padding(it),
+            color = StrideTheme.colors.surface
         ) {
 
         }

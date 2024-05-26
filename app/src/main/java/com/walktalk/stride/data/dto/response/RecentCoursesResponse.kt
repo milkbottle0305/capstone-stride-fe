@@ -22,3 +22,19 @@ data class RecentCourse(
     val time: Int,
     val course: List<Coordinate>
 )
+
+fun RecentCoursesResponse.toRecentCourses(): List<com.walktalk.stride.data.model.RecentCourse> {
+    return results.map {
+        com.walktalk.stride.data.model.RecentCourse(
+            courseName = it.courseName,
+            distance = it.distance,
+            time = "${it.time / 60}시간 ${it.time % 60}분",
+            course = it.course.map { coordinate ->
+                Coordinate(
+                    latitude = coordinate.latitude,
+                    longitude = coordinate.longitude
+                )
+            }
+        )
+    }
+}

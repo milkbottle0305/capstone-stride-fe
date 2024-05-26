@@ -22,3 +22,19 @@ data class MyRoom(
     val participatingCount: Int,
     val course: List<Coordinate>
 )
+
+fun MyRoomsResponse.toMyRooms(): List<com.walktalk.stride.data.model.MyRoom> {
+    return results.map {
+        com.walktalk.stride.data.model.MyRoom(
+            roomName = it.roomName,
+            courseName = it.courseName,
+            participatingCount = it.participatingCount,
+            course = it.course.map { coordinate ->
+                Coordinate(
+                    latitude = coordinate.latitude,
+                    longitude = coordinate.longitude
+                )
+            }
+        )
+    }
+}

@@ -44,7 +44,7 @@ fun ShareModal(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = StrideTheme.colors.textPrimary.copy(alpha = 0.5f))
+            .background(color = StrideTheme.colors.modalBackground)
             .clickable(
                 indication = null,
                 interactionSource = remember { MutableInteractionSource() },
@@ -57,7 +57,7 @@ fun ShareModal(
                 .padding(horizontal = 32.dp)
                 .clip(RoundedCornerShape(10.dp)),
             shape = RoundedCornerShape(10.dp),
-            color = StrideTheme.colors.backgroundPrimary
+            color = StrideTheme.colors.containerPrimary
         ) {
             Column(
                 modifier = Modifier
@@ -89,10 +89,10 @@ fun ShareModal(
                 BasicTextField(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(StrideTheme.colors.buttonTextPrimary)
+                        .background(StrideTheme.colors.textFieldSecondary)
                         .border(
                             1.dp,
-                            StrideTheme.colors.disableButtonPrimary,
+                            StrideTheme.colors.textFieldBorderSecondary,
                             RoundedCornerShape(10.dp)
                         )
                         .height(40.dp)
@@ -102,7 +102,7 @@ fun ShareModal(
                     singleLine = true,
                     textStyle = TextStyle(
                         fontSize = 24.sp,
-                        color = StrideTheme.colors.textPrimary,
+                        color = StrideTheme.colors.textFieldTextSecondary,
                     ),
                     decorationBox = { innerTextField ->
                         Row(
@@ -121,14 +121,14 @@ fun ShareModal(
                         .clip(RoundedCornerShape(5.dp))
                         .clickable { if (enabled) onInputSubmit() },
                     shape = RoundedCornerShape(5.dp),
-                    color = if (enabled) StrideTheme.colors.primary else StrideTheme.colors.disableButtonPrimary
+                    color = if (enabled) StrideTheme.colors.buttonPrimary else StrideTheme.colors.buttonDisabledPrimary
                 ) {
                     Text(
                         stringResource(id = R.string.exercise_course_name_submit),
                         modifier = Modifier
                             .padding(horizontal = 20.dp, vertical = 3.dp),
                         fontSize = 24.sp,
-                        color = StrideTheme.colors.textQuaternary,
+                        color = StrideTheme.colors.buttonTextPrimary,
                     )
                 }
             }

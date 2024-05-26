@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -37,6 +38,7 @@ import com.walktalk.stride.presentation.exercise.components.CompleteButton
 import com.walktalk.stride.presentation.exercise.components.ExerciseMap
 import com.walktalk.stride.presentation.exercise.components.ProgressBar
 import com.walktalk.stride.presentation.navigation.Screen
+import com.walktalk.stride.ui.theme.StrideTheme
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -151,33 +153,38 @@ fun ExerciseContent(
     canComplete: Boolean,
     viewModel: ExerciseViewModel
 ) {
-    Column(
+    Surface(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        color = StrideTheme.colors.surface,
     ) {
-        ExerciseMap(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.8f),
-            viewModel = viewModel
-        )
         Column(
-            modifier = Modifier.weight(0.2f)
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
-            ProgressBar(viewModel.process)
-            Spacer(modifier = Modifier.height(20.dp))
-            CompleteButton(
+            ExerciseMap(
                 modifier = Modifier
-                    .align(Alignment.End),
-                enabled = canComplete
+                    .fillMaxWidth()
+                    .weight(0.8f),
+                viewModel = viewModel
+            )
+            Column(
+                modifier = Modifier.weight(0.2f)
             ) {
-                navController.navigate(Screen.ExerciseSummary.route) {
-                    popUpTo(Screen.Exercise.route) {
-                        inclusive = true
+                Spacer(modifier = Modifier.height(20.dp))
+                ProgressBar(viewModel.process)
+                Spacer(modifier = Modifier.height(20.dp))
+                CompleteButton(
+                    modifier = Modifier
+                        .align(Alignment.End),
+                    enabled = canComplete
+                ) {
+                    navController.navigate(Screen.ExerciseSummary.route) {
+                        popUpTo(Screen.Exercise.route) {
+                            inclusive = true
+                        }
                     }
+                    viewModel.completeExercise()
                 }
-                viewModel.completeExercise()
             }
         }
     }

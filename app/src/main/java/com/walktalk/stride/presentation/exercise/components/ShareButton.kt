@@ -29,15 +29,15 @@ fun ShareButtonRow(onNoClick: () -> Unit, onYesClick: () -> Unit) {
             modifier = Modifier
                 .padding(vertical = 10.dp)
                 .weight(1f)
-                .border(width = 1.dp, color = StrideTheme.colors.primary, shape = RoundedCornerShape(10.dp))
+                .border(width = 1.dp, color = StrideTheme.colors.buttonBorderSecondary, shape = RoundedCornerShape(10.dp))
                 .clickable(onClick = onNoClick),
-            color = StrideTheme.colors.backgroundPrimary,
+            color = StrideTheme.colors.buttonSecondary,
             shape = RoundedCornerShape(10.dp),
         ) {
             Text(
                 stringResource(id = R.string.no),
                 textAlign = TextAlign.Center,
-                color = StrideTheme.colors.textSecondary,
+                color = StrideTheme.colors.buttonTextSecondary,
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -47,15 +47,15 @@ fun ShareButtonRow(onNoClick: () -> Unit, onYesClick: () -> Unit) {
             modifier = Modifier
                 .padding(vertical = 10.dp)
                 .weight(1f)
-                .border(width = 1.dp, color = StrideTheme.colors.backgroundPrimary, shape = RoundedCornerShape(10.dp))
+                .border(width = 1.dp, color = StrideTheme.colors.buttonBorderPrimary, shape = RoundedCornerShape(10.dp))
                 .clickable(onClick = onYesClick),
-            color = StrideTheme.colors.primary,
+            color = StrideTheme.colors.buttonPrimary,
             shape = RoundedCornerShape(10.dp),
         ) {
             Text(
                 stringResource(id = R.string.yes),
                 textAlign = TextAlign.Center,
-                color = StrideTheme.colors.backgroundPrimary,
+                color = StrideTheme.colors.buttonTextPrimary,
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold
             )
