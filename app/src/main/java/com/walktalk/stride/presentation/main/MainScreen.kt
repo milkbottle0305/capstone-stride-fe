@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.layout.positionInWindow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -120,6 +121,31 @@ fun MainContent(
     setOffsetY: (Dp) -> Unit,
 ) {
     val density = LocalDensity.current
+    val context = LocalContext.current
+    val levelString = remember(todayGoal.level) {
+        when (todayGoal.level) {
+            1 -> {
+                Log.d("MainScreen", "level 1")
+                context.getString(R.string.level_1)
+            }
+
+            2 -> context.getString(R.string.level_2)
+            3 -> context.getString(R.string.level_3)
+            4 -> context.getString(R.string.level_4)
+            else -> context.getString(R.string.level_4)
+        }
+    }
+
+    val nextLevelString = remember(todayGoal.level) {
+        when (todayGoal.level) {
+            1 -> context.getString(R.string.level_2)
+            2 -> context.getString(R.string.level_3)
+            3 -> context.getString(R.string.level_4)
+            4 -> context.getString(R.string.level_4)
+            else -> context.getString(R.string.level_4)
+        }
+    }
+
     LaunchedEffect(todayGoal.allComplete) {
         if (todayGoal.allComplete) {
             setIsGoalClicked(true)
@@ -159,12 +185,14 @@ fun MainContent(
                         Column(
                             modifier = Modifier.padding(horizontal = 18.dp, vertical = 12.dp)
                         ) {
-                            Text(
-                                text = "Lv ${todayGoal.level}",
-                                color = StrideTheme.colors.textSecondary,
-                                fontSize = 40.sp,
-                                fontWeight = FontWeight.Bold,
-                            )
+                            Row {
+                                Text(
+                                    text = levelString,
+                                    color = StrideTheme.colors.textSecondary,
+                                    fontSize = 32.sp,
+                                    fontWeight = FontWeight.Bold,
+                                )
+                            }
                             Spacer(modifier = Modifier.height(10.dp))
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -485,7 +513,8 @@ fun MainContent(
                     ) {
                         GoalModal(
                             allComplete = todayGoal.allComplete,
-                            level = todayGoal.level,
+                            levelString = levelString,
+                            nextLevelString = nextLevelString,
                             stride = todayGoal.goalStride,
                             speed = todayGoal.goalSpeed,
                             step = todayGoal.goalStep

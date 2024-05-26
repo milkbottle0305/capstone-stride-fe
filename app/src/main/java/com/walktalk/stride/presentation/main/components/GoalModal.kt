@@ -26,7 +26,8 @@ import com.walktalk.stride.ui.theme.StrideTheme
 @Composable
 fun GoalModal(
     allComplete: Boolean,
-    level: Int,
+    levelString: String,
+    nextLevelString: String,
     stride: Int,
     speed: Double,
     step: Int,
@@ -59,7 +60,7 @@ fun GoalModal(
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = if (!allComplete) stringResource(id = R.string.goal_today) else stringResource(
-                    id = R.string.goal_level, level - 1, level
+                    id = R.string.goal_level, levelString, nextLevelString
                 ),
                 fontSize = 20.sp,
                 color = StrideTheme.colors.textPrimary

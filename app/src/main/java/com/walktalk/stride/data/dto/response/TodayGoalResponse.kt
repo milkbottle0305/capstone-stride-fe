@@ -5,6 +5,7 @@ import com.walktalk.stride.data.model.TodayGoal
 
 data class TodayGoalResponse(
     val level: Int,
+    val exp: Int,
     val stride: TodayIntData,
     val speed: TodayDoubleData,
     val step: TodayIntData,
