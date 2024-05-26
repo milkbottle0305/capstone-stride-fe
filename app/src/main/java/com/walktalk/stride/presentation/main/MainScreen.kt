@@ -236,18 +236,14 @@ fun MainContent(
                     )
                     Spacer(modifier = Modifier.height(20.dp))
                     if (myRooms.isEmpty()) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.empty),
-                                color = StrideTheme.colors.textPrimary,
-                                textAlign = TextAlign.Center,
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold,
-                            )
-                        }
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = stringResource(id = R.string.empty),
+                            color = StrideTheme.colors.textPrimary,
+                            textAlign = TextAlign.Center,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                        )
                     } else {
                         LazyRow(
                             contentPadding = PaddingValues(horizontal = 10.dp),
@@ -316,18 +312,14 @@ fun MainContent(
                     )
                     Spacer(modifier = Modifier.height(20.dp))
                     if (recentCourse == null) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.empty),
-                                color = StrideTheme.colors.textPrimary,
-                                textAlign = TextAlign.Center,
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold,
-                            )
-                        }
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = stringResource(id = R.string.empty),
+                            color = StrideTheme.colors.textPrimary,
+                            textAlign = TextAlign.Center,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                        )
                     } else {
                         Surface(
                             modifier = Modifier
