@@ -1,6 +1,7 @@
 package com.walktalk.stride.data.dto.response
 
 import com.google.gson.annotations.SerializedName
+import com.walktalk.stride.data.model.TodayGoal
 
 data class TodayGoalResponse(
     val level: Int,
@@ -23,4 +24,15 @@ data class TodayDoubleData(
     val todayCurrent: Double,
     @SerializedName("today_goal")
     val todayGoal: Double
+)
+
+fun TodayGoalResponse.toTodayGoal() = TodayGoal(
+    level = level,
+    currentDistance = distance.todayCurrent,
+    goalDistance = distance.todayGoal,
+    currentSpeed = speed.todayCurrent,
+    goalSpeed = speed.todayGoal,
+    currentStep = step.todayCurrent,
+    goalStep = step.todayGoal,
+    allComplete = allComplete
 )

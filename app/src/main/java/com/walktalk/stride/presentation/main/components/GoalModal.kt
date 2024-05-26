@@ -18,14 +18,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.walktalk.stride.R
 import com.walktalk.stride.ui.theme.StrideTheme
 
 @Composable
-fun GoalModal(distance: Int, speed: Double, step: Int, onClick: () -> Unit) {
+fun GoalModal(
+    allComplete: Boolean,
+    level: Int,
+    distance: Int,
+    speed: Double,
+    step: Int,
+    onClick: () -> Unit
+) {
     Surface(
         color = StrideTheme.colors.containerPrimary,
         shape = RoundedCornerShape(10.dp)
@@ -44,13 +50,17 @@ fun GoalModal(distance: Int, speed: Double, step: Int, onClick: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = stringResource(id = R.string.goal_signup_congratulations),
+                text = if (!allComplete) stringResource(id = R.string.goal_signup_congratulations) else stringResource(
+                    id = R.string.goal_level_congratulations
+                ),
                 fontSize = 30.sp,
                 color = StrideTheme.colors.textPrimary
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = stringResource(id = R.string.goal_today),
+                text = if (!allComplete) stringResource(id = R.string.goal_today) else stringResource(
+                    id = R.string.goal_level, level - 1, level
+                ),
                 fontSize = 20.sp,
                 color = StrideTheme.colors.textPrimary
             )
@@ -106,13 +116,5 @@ fun GoalModal(distance: Int, speed: Double, step: Int, onClick: () -> Unit) {
                 )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun GoalModalPreview() {
-    StrideTheme {
-        GoalModal(distance = 5000, speed = 4.8, step = 4000) {}
     }
 }
