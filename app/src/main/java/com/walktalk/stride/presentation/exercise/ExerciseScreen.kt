@@ -45,7 +45,8 @@ import com.walktalk.stride.ui.theme.StrideTheme
 fun ExerciseScreen(
     navController: NavController,
     viewModel: ExerciseViewModel,
-    exerciseType: String
+    exerciseType: String,
+    goalStep: Int
 ) {
     val context = LocalContext.current
     val permissionErrorString = stringResource(id = R.string.permission_error)
@@ -57,6 +58,9 @@ fun ExerciseScreen(
     val intentService = remember { Intent(context, ExerciseService::class.java) }
 
     val canComplete = viewModel.canComplete.value
+    val cameraPositionState = viewModel.cameraPositionState.value
+    val pathList = viewModel.pathList.value
+    val currentStep = viewModel.stepList.value.sum()
 
     val broadcastReceiver = remember {
         object : BroadcastReceiver() {
@@ -143,15 +147,32 @@ fun ExerciseScreen(
             requestPermissionLauncher.launch(permissions.toTypedArray())
         }
     } else {
-        ExerciseContent(navController, canComplete, viewModel)
+        ExerciseContent(
+            canComplete = canComplete,
+            cameraPositionState = cameraPositionState,
+            pathList = pathList,
+            currentDistance = currentStep,
+            goalDistance = goalStep,
+            onCompleteExercise = {
+                viewModel.completeExercise()
+                navController.navigate(Screen.ExerciseSummary.route) {
+                    popUpTo(Screen.Exercise.route) {
+                        inclusive = true
+                    }
+                }
+            }
+        )
     }
 }
 
 @Composable
 fun ExerciseContent(
-    navController: NavController,
     canComplete: Boolean,
-    viewModel: ExerciseViewModel
+    cameraPositionState: CameraPositionState,
+    pathList: List<LatLng>,
+    currentDistance: Int,
+    goalDistance: Int,
+    onCompleteExercise: () -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -165,25 +186,21 @@ fun ExerciseContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.8f),
-                viewModel = viewModel
+                cameraPositionState = cameraPositionState,
+                pathList = pathList
             )
             Column(
                 modifier = Modifier.weight(0.2f)
             ) {
                 Spacer(modifier = Modifier.height(20.dp))
-                ProgressBar(viewModel.process)
+                ProgressBar(currentDistance, goalDistance)
                 Spacer(modifier = Modifier.height(20.dp))
                 CompleteButton(
                     modifier = Modifier
                         .align(Alignment.End),
                     enabled = canComplete
                 ) {
-                    navController.navigate(Screen.ExerciseSummary.route) {
-                        popUpTo(Screen.Exercise.route) {
-                            inclusive = true
-                        }
-                    }
-                    viewModel.completeExercise()
+                    onCompleteExercise()
                 }
             }
         }

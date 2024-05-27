@@ -19,7 +19,7 @@ import java.util.TimeZone
 
 class ExerciseViewModel : ViewModel() {
     private val exerciseRepository = ExerciseRepository()
-    val process = 0.5f
+    
     private val delayMillis: Long = 20000
     private val _saveExerciseApiState = mutableStateOf<ApiState<String>>(ApiState.Empty)
     val saveExerciseApiState: State<ApiState<String>> = _saveExerciseApiState

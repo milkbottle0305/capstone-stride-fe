@@ -451,7 +451,7 @@ fun MainContent(
                     modifier = Modifier
                         .size(100.dp)
                         .offset(x = offsetX, y = offsetY + (-200).dp)
-                        .clickable { navController.navigate("exercise/default") },
+                        .clickable { navController.navigate("exercise?exerciseType=default&goalStep=${todayGoal.goalStep - todayGoal.currentStep}") },
                     shape = CircleShape,
                     color = StrideTheme.colors.buttonPrimary,
                 ) {
@@ -468,7 +468,7 @@ fun MainContent(
                     modifier = Modifier
                         .size(100.dp)
                         .offset(x = offsetX + (-130).dp, y = offsetY + (-100).dp)
-                        .clickable { navController.navigate("exercise/speed") },
+                        .clickable { navController.navigate("exercise?exerciseType=speed&goalStep=${todayGoal.goalStep - todayGoal.currentStep}") },
                     shape = CircleShape,
                     color = StrideTheme.colors.buttonPrimary,
                 ) {
@@ -485,7 +485,7 @@ fun MainContent(
                     modifier = Modifier
                         .size(100.dp)
                         .offset(x = offsetX + 130.dp, y = offsetY + (-100).dp)
-                        .clickable { navController.navigate("exercise/stride") },
+                        .clickable { navController.navigate("exercise?exerciseType=stride&goalStep=${todayGoal.goalStep - todayGoal.currentStep}") },
                     shape = CircleShape,
                     color = StrideTheme.colors.buttonPrimary,
                 ) {

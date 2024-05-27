@@ -26,7 +26,7 @@ class MockDataSource {
             exp = 5,
             stride = TodayIntData(67, 70),
             speed = TodayDoubleData(4.8, 5.0),
-            step = TodayIntData(3000, 5000),
+            step = TodayIntData(4950, 5000),
             allComplete = false
         )
     }
