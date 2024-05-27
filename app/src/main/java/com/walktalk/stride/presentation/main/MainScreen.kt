@@ -3,6 +3,7 @@
 package com.walktalk.stride.presentation.main
 
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -38,6 +40,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -185,12 +188,45 @@ fun MainContent(
                         Column(
                             modifier = Modifier.padding(horizontal = 18.dp, vertical = 12.dp)
                         ) {
-                            Row {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
                                 Text(
                                     text = levelString,
                                     color = StrideTheme.colors.textSecondary,
                                     fontSize = 32.sp,
                                     fontWeight = FontWeight.Bold,
+                                )
+                                Spacer(modifier = Modifier.width(5.dp))
+                                Image(
+                                    painter = when (todayGoal.level) {
+                                        1 -> painterResource(id = R.drawable.level_1)
+                                        2 -> painterResource(id = R.drawable.level_2)
+                                        3 -> painterResource(id = R.drawable.level_3)
+                                        else -> painterResource(id = R.drawable.level_4)
+                                    },
+                                    contentDescription = "level_icon",
+                                    modifier = Modifier
+                                        .width(42.dp)
+                                        .height(48.dp)
+                                )
+                                Spacer(modifier = Modifier.width(5.dp))
+                                LinearProgressIndicator(
+                                    progress = when (todayGoal.level) {
+                                        4 -> 1f
+                                        else -> todayGoal.exp / 10f
+                                    },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(24.dp)
+                                        .clip(RoundedCornerShape(12.dp)),
+                                    color = when (todayGoal.level) {
+                                        1 -> StrideTheme.colors.level1
+                                        2 -> StrideTheme.colors.level2
+                                        3 -> StrideTheme.colors.level3
+                                        else -> StrideTheme.colors.level3
+                                    },
+                                    trackColor = StrideTheme.colors.progressBackground,
                                 )
                             }
                             Spacer(modifier = Modifier.height(10.dp))

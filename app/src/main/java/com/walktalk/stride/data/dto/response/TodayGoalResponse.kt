@@ -29,6 +29,7 @@ data class TodayDoubleData(
 
 fun TodayGoalResponse.toTodayGoal() = TodayGoal(
     level = level,
+    exp = exp,
     currentStride = stride.todayCurrent,
     goalStride = stride.todayGoal,
     currentSpeed = speed.todayCurrent,
