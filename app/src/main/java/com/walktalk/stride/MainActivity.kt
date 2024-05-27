@@ -11,7 +11,6 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.walktalk.stride.presentation.navigation.NavGraph
-import com.walktalk.stride.presentation.navigation.Screen
 import com.walktalk.stride.ui.theme.StrideTheme
 import com.walktalk.stride.utils.LoginUtils
 
@@ -33,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 startDestination?.let {
-                    NavGraph(navController = navController, startDestination = Screen.Main.route)
+                    NavGraph(navController = navController, startDestination = it)
                 }
             }
         }
