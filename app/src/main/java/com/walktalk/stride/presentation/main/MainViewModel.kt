@@ -86,7 +86,7 @@ class MainViewModel : ViewModel() {
         _recentApiState.value = ApiState.Loading
         viewModelScope.launch {
             try {
-                val response = mainRepository.getRecentCourses()
+                val response = mainRepository.getRecentCourses(showCount = 1)
                 _recentCourses.value = response.toRecentCourses()
                 if (_recentCourses.value.isNotEmpty())
                     _recentCourse.value = _recentCourses.value[0]
