@@ -16,6 +16,8 @@ data class ExerciseRequest(
     val maxSpeed: Double,
     @SerializedName("average_speed")
     val averageSpeed: Double,
+    @SerializedName("data_count")
+    val dataCount: Int,
     val step: Int,
     val distance: Int,
     @SerializedName("start_time")

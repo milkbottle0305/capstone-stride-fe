@@ -162,7 +162,7 @@ fun ExerciseSummaryScreen(navController: NavController, viewModel: ExerciseViewM
     if (isShareModalOpen) {
         ShareModal(
             inputText = courseName,
-            enabled = courseName.isNotEmpty() && saveExerciseApiState !is ApiState.Loading,
+            enabled = courseName.isNotEmpty() && saveExerciseApiState !is ApiState.Loading && saveExerciseApiState !is ApiState.Success,
             onTextChange = { viewModel.setCourseName(it) },
             onCancelClick = { viewModel.closeShareModal() },
             onInputSubmit = { viewModel.saveExercise(true) }

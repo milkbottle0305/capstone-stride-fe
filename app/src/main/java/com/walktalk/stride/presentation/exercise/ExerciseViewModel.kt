@@ -19,7 +19,7 @@ import java.util.TimeZone
 
 class ExerciseViewModel : ViewModel() {
     private val exerciseRepository = ExerciseRepository()
-    
+
     private val delayMillis: Long = 20000
     private val _saveExerciseApiState = mutableStateOf<ApiState<String>>(ApiState.Empty)
     val saveExerciseApiState: State<ApiState<String>> = _saveExerciseApiState
@@ -144,6 +144,7 @@ class ExerciseViewModel : ViewModel() {
                     minSpeed = _speedList.value.min(),
                     maxSpeed = _speedList.value.max(),
                     averageSpeed = _speedList.value.average(),
+                    dataCount = _speedList.value.size,
                     step = _stepList.value.sum(),
                     distance = _distanceList.value.last().toInt(),
                     startTime = startTimeString,
