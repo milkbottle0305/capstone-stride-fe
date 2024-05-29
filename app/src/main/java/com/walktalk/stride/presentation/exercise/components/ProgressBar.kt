@@ -18,7 +18,7 @@ import com.walktalk.stride.R
 import com.walktalk.stride.ui.theme.StrideTheme
 
 @Composable
-fun ProgressBar(progress: Float) {
+fun ProgressBar(currentDistance: Int, goalDistance: Int) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Image(
             painter = painterResource(id = R.drawable.step),
@@ -30,7 +30,7 @@ fun ProgressBar(progress: Float) {
         )
         Spacer(modifier = Modifier.width(17.dp))
         LinearProgressIndicator(
-            progress = progress,
+            progress = currentDistance.toFloat() / goalDistance,
             modifier = Modifier
                 .width(280.dp)
                 .height(20.dp)
@@ -44,5 +44,5 @@ fun ProgressBar(progress: Float) {
 @Preview
 @Composable
 fun ProgressBarPreview() {
-    ProgressBar(0.5f)
+    ProgressBar(1000, 5000)
 }

@@ -7,11 +7,15 @@ import com.walktalk.stride.data.dto.request.RefreshTokenRequest
 import com.walktalk.stride.data.dto.request.UserDataRequest
 import com.walktalk.stride.data.dto.request.UserProfileRequest
 import com.walktalk.stride.data.dto.response.LoginResponse
+import com.walktalk.stride.data.dto.response.RecentCoursesResponse
 import com.walktalk.stride.data.dto.response.RefreshTokenResponse
+import com.walktalk.stride.data.dto.response.TodayGoalResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -32,4 +36,13 @@ interface ApiService {
 
     @POST("/api/exercise")
     suspend fun saveExercise(@Body request: ExerciseRequest): Response<Unit>
+
+    @GET("/api/course/mine")
+    suspend fun getRecentCourses(
+        @Query("show_count") showCount: Int,
+        @Query("next_course_id") nextCourseId: Int? = null
+    ): Response<RecentCoursesResponse>
+
+    @GET("/api/user/goal")
+    suspend fun getTodayGoal(): Response<TodayGoalResponse>
 }

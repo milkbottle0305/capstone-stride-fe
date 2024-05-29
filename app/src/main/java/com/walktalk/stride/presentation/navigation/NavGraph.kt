@@ -58,9 +58,13 @@ fun NavGraph(
         ) {
             composable(
                 route = Screen.Exercise.route,
-                arguments = listOf(navArgument("exerciseType") { type = NavType.StringType })
+                arguments = listOf(
+                    navArgument("exerciseType") { type = NavType.StringType },
+                    navArgument("goalStep") { type = NavType.IntType }
+                )
             ) { entry ->
                 val exerciseType = entry.arguments?.getString("exerciseType") ?: "default"
+                val goalStep = entry.arguments?.getInt("goalStep") ?: 0
                 val exerciseBackStackEntry = remember {
                     navController.getBackStackEntry("exercise")
                 }
@@ -68,7 +72,8 @@ fun NavGraph(
                 ExerciseScreen(
                     navController = navController,
                     viewModel = exerciseViewModel,
-                    exerciseType = exerciseType
+                    exerciseType = exerciseType,
+                    goalStep = goalStep
                 )
             }
             composable(route = Screen.ExerciseSummary.route) {

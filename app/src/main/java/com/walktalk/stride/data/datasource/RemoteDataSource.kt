@@ -9,7 +9,9 @@ import com.walktalk.stride.data.dto.request.RefreshTokenRequest
 import com.walktalk.stride.data.dto.request.UserDataRequest
 import com.walktalk.stride.data.dto.request.UserProfileRequest
 import com.walktalk.stride.data.dto.response.LoginResponse
+import com.walktalk.stride.data.dto.response.RecentCoursesResponse
 import com.walktalk.stride.data.dto.response.RefreshTokenResponse
+import com.walktalk.stride.data.dto.response.TodayGoalResponse
 
 class RemoteDataSource {
     private val apiService: ApiService = RetrofitInstance.apiService
@@ -71,6 +73,28 @@ class RemoteDataSource {
             response.isSuccessful
         } catch (e: Exception) {
             false
+        }
+    }
+
+    suspend fun getTodayGoal(): TodayGoalResponse {
+        return try {
+            val response = apiService.getTodayGoal()
+            if (response.isSuccessful)
+                response.body()!!
+            else throw Exception(response.errorBody().toString())
+        } catch (e: Exception) {
+            throw Exception(e.message)
+        }
+    }
+
+    suspend fun getRecentCourses(showCount: Int, nextCourseId: Int? = null): RecentCoursesResponse {
+        return try {
+            val response = apiService.getRecentCourses(showCount, nextCourseId)
+            if (response.isSuccessful)
+                response.body()!!
+            else throw Exception(response.errorBody().toString())
+        } catch (e: Exception) {
+            throw Exception(e.message)
         }
     }
 }

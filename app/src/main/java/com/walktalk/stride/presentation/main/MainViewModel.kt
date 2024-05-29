@@ -14,11 +14,13 @@ import com.walktalk.stride.data.model.ApiState
 import com.walktalk.stride.data.model.MyRoom
 import com.walktalk.stride.data.model.RecentCourse
 import com.walktalk.stride.data.model.TodayGoal
+import com.walktalk.stride.data.repository.ExerciseRepository
 import com.walktalk.stride.data.repository.MainRepository
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
     private val mainRepository = MainRepository()
+    private val exerciseRepository = ExerciseRepository()
 
     private val _allApiState = mutableStateOf<ApiState<String>>(ApiState.Empty)
     val allApiState: State<ApiState<String>> = _allApiState
@@ -84,7 +86,7 @@ class MainViewModel : ViewModel() {
         _recentApiState.value = ApiState.Loading
         viewModelScope.launch {
             try {
-                val response = mainRepository.getRecentCourses()
+                val response = mainRepository.getRecentCourses(showCount = 1)
                 _recentCourses.value = response.toRecentCourses()
                 if (_recentCourses.value.isNotEmpty())
                     _recentCourse.value = _recentCourses.value[0]
