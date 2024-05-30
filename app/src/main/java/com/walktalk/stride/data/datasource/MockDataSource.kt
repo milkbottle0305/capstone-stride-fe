@@ -111,6 +111,36 @@ class MockDataSource {
                         Coordinate(23.11231273, 38.12389732)
                     )
                 ),
+                PopularCourse(
+                    courseId = 314,
+                    courseName = "경희대 국제",
+                    nearby = 3,
+                    participatingCount = 3,
+                    route = listOf(
+                        Coordinate(23.11231273, 38.12389732),
+                        Coordinate(23.11231273, 38.12389732)
+                    )
+                ),
+                PopularCourse(
+                    courseId = 314,
+                    courseName = "경희대 국제",
+                    nearby = 3,
+                    participatingCount = 3,
+                    route = listOf(
+                        Coordinate(23.11231273, 38.12389732),
+                        Coordinate(23.11231273, 38.12389732)
+                    )
+                ),
+                PopularCourse(
+                    courseId = 314,
+                    courseName = "경희대 국제캠 한바퀴",
+                    nearby = 3,
+                    participatingCount = 3,
+                    route = listOf(
+                        Coordinate(23.11231273, 38.12389732),
+                        Coordinate(23.11231273, 38.12389732)
+                    )
+                ),
             ),
             hasNext = true,
             nextCourseId = 316
