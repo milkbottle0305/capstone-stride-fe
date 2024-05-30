@@ -77,7 +77,7 @@
     <string name="together_single">혼자 걷기</string>
     <string name="together_together">함께 걷기</string>
     <string name="together_participating">%d명 참여중</string>
-    <string name="together_distance">%fkm</string>
+    <string name="together_distance">%.1fkm</string>
     <string name="together_detail_start_point">출발지: %s</string>
     <string name="together_detail_time">%d시 %d분</string>
     <string name="together_detail_participating">%d명</string>
