@@ -86,7 +86,8 @@ fun NavGraph(
         }
         composable(route = Screen.Together.route) {
             TogetherScreen(
-                navController = navController
+                navController = navController,
+                viewModel = viewModel()
             )
         }
         composable(route = Screen.Analysis.route) {

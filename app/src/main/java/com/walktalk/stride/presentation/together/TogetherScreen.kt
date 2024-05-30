@@ -13,6 +13,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -21,24 +22,47 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.walktalk.stride.R
-import com.walktalk.stride.data.model.Coordinate
+import com.walktalk.stride.data.model.ApiState
+import com.walktalk.stride.data.model.PopularCourse
 import com.walktalk.stride.presentation.components.StrideNavigationBar
-import com.walktalk.stride.presentation.together.components.RoomCard
+import com.walktalk.stride.presentation.together.components.CourseCard
 import com.walktalk.stride.ui.theme.StrideTheme
 
 @Composable
 fun TogetherScreen(navController: NavController, viewModel: TogetherViewModel) {
-    TogetherContent(navController = navController)
+    LaunchedEffect(Unit) {
+        viewModel.getPopularCourses()
+    }
+    when (viewModel.popularCoursesApiState.value) {
+        is ApiState.Loading -> {
+            // Show loading indicator
+        }
+
+        is ApiState.Success -> {
+            TogetherContent(
+                navController = navController,
+                popularCourses = viewModel.popularCourses
+            )
+        }
+
+        is ApiState.Error -> {
+            // Show error message
+        }
+
+        is ApiState.Empty -> {
+            // Show empty indicator
+        }
+    }
 }
 
 @Composable
-fun TogetherContent(navController: NavController) {
+fun TogetherContent(navController: NavController, popularCourses: List<PopularCourse>) {
     Scaffold(
         bottomBar = { StrideNavigationBar(navController = navController) },
         containerColor = StrideTheme.colors.surface,
-    ) {
+    ) { paddingValues ->
         Box(
-            modifier = Modifier.padding(it),
+            modifier = Modifier.padding(paddingValues),
         ) {
             Column(
                 modifier = Modifier.padding(
@@ -58,8 +82,13 @@ fun TogetherContent(navController: NavController) {
                     horizontalArrangement = Arrangement.spacedBy(13.dp),
                     verticalArrangement = Arrangement.spacedBy(24.dp),
                 ) {
-                    items(6) {
-                        RoomCard(listOf(Coordinate(0.0, 0.0)), "경희대 산책길", 10, 3.0)
+                    items(popularCourses.size) { itemIndex ->
+                        CourseCard(
+                            pathList = popularCourses[itemIndex].course,
+                            courseName = popularCourses[itemIndex].courseName,
+                            participatingCount = popularCourses[itemIndex].participatingCount,
+                            nearby = popularCourses[itemIndex].nearby
+                        )
                     }
                 }
             }

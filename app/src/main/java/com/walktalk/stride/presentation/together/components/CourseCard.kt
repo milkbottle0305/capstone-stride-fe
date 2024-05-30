@@ -33,11 +33,11 @@ import com.walktalk.stride.data.model.Coordinate
 import com.walktalk.stride.ui.theme.StrideTheme
 
 @Composable
-fun RoomCard(
+fun CourseCard(
     pathList: List<Coordinate>,
-    roomName: String,
+    courseName: String,
     participatingCount: Int,
-    courseDistance: Double
+    nearby: Double
 ) {
     val maxLat = pathList.maxByOrNull { it.latitude }?.latitude ?: 0.0
     val minLat = pathList.minByOrNull { it.latitude }?.latitude ?: 0.0
@@ -89,7 +89,7 @@ fun RoomCard(
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = roomName,
+                text = courseName,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = StrideTheme.colors.textPrimary
@@ -124,7 +124,7 @@ fun RoomCard(
                         .width(20.dp)
                 )
                 Text(
-                    text = stringResource(id = R.string.together_distance, courseDistance),
+                    text = stringResource(id = R.string.together_distance, nearby),
                     fontSize = 16.sp,
                     color = StrideTheme.colors.textPrimary
                 )
@@ -177,11 +177,11 @@ fun RoomCard(
 
 @Preview
 @Composable
-fun RoomCardPreview() {
-    RoomCard(
+fun CourseCardPreview() {
+    CourseCard(
         pathList = listOf(),
-        roomName = "Room Name",
+        courseName = "Room Name",
         participatingCount = 0,
-        courseDistance = 0.0
+        nearby = 0.0
     )
 }
