@@ -25,6 +25,7 @@ data class PopularCourse(
 fun PopularCoursesResponse.toPopularCourses(): List<com.walktalk.stride.data.model.PopularCourse> {
     return results.map {
         com.walktalk.stride.data.model.PopularCourse(
+            courseId = it.courseId,
             courseName = it.courseName,
             participatingCount = it.participatingCount,
             nearby = it.nearby.toDouble(),

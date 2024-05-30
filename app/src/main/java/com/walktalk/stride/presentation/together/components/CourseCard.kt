@@ -2,6 +2,7 @@ package com.walktalk.stride.presentation.together.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.android.gms.maps.model.CameraPosition
@@ -37,7 +37,9 @@ fun CourseCard(
     pathList: List<Coordinate>,
     courseName: String,
     participatingCount: Int,
-    nearby: Double
+    nearby: Double,
+    onSingleClicked: () -> Unit,
+    onTogetherClicked: () -> Unit
 ) {
     val maxLat = pathList.maxByOrNull { it.latitude }?.latitude ?: 0.0
     val minLat = pathList.minByOrNull { it.latitude }?.latitude ?: 0.0
@@ -55,11 +57,13 @@ fun CourseCard(
         LatLng(coordinate.latitude, coordinate.longitude)
     }
     Surface(
-        modifier = Modifier.border(
-            1.dp,
-            color = StrideTheme.colors.buttonBorderSecondary,
-            shape = RoundedCornerShape(10.dp)
-        ).clip(RoundedCornerShape(10.dp)),
+        modifier = Modifier
+            .border(
+                1.dp,
+                color = StrideTheme.colors.buttonBorderSecondary,
+                shape = RoundedCornerShape(10.dp)
+            )
+            .clip(RoundedCornerShape(10.dp)),
         color = StrideTheme.colors.buttonSecondary,
         shape = RoundedCornerShape(10.dp),
     ) {
@@ -91,6 +95,7 @@ fun CourseCard(
             Text(
                 text = courseName,
                 fontSize = 18.sp,
+                maxLines = 1,
                 fontWeight = FontWeight.Bold,
                 color = StrideTheme.colors.textPrimary
             )
@@ -159,7 +164,10 @@ fun CourseCard(
                             color = StrideTheme.colors.buttonTextSecondary,
                             shape = RoundedCornerShape(8.dp),
                         )
-                        .clip(RoundedCornerShape(8.dp)),
+                        .clip(RoundedCornerShape(8.dp))
+                        .clickable {
+                            onTogetherClicked()
+                        },
                     color = StrideTheme.colors.buttonSecondary,
                     shape = RoundedCornerShape(8.dp),
                 ) {
@@ -173,15 +181,4 @@ fun CourseCard(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun CourseCardPreview() {
-    CourseCard(
-        pathList = listOf(),
-        courseName = "Room Name",
-        participatingCount = 0,
-        nearby = 0.0
-    )
 }

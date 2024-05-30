@@ -87,16 +87,16 @@ fun TogetherContent(navController: NavController, popularCourses: List<PopularCo
                             pathList = popularCourses[itemIndex].course,
                             courseName = popularCourses[itemIndex].courseName,
                             participatingCount = popularCourses[itemIndex].participatingCount,
-                            nearby = popularCourses[itemIndex].nearby
+                            nearby = popularCourses[itemIndex].nearby,
+                            onSingleClicked = {},
+                            onTogetherClicked = {
+                                navController.navigate(
+                                    "waiting_room/courseId=${popularCourses[itemIndex].courseId}"
+                                )
                         )
                     }
                 }
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun TogetherContentPreview() {
 }

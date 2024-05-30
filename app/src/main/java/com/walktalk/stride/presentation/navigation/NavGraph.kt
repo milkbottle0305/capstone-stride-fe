@@ -20,6 +20,7 @@ import com.walktalk.stride.presentation.signup.SignupGenderAgeScreen
 import com.walktalk.stride.presentation.signup.SignupNicknameScreen
 import com.walktalk.stride.presentation.signup.SignupViewModel
 import com.walktalk.stride.presentation.together.TogetherScreen
+import com.walktalk.stride.presentation.together.WaitingRoomScreen
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
@@ -88,6 +89,17 @@ fun NavGraph(
             TogetherScreen(
                 navController = navController,
                 viewModel = viewModel()
+            )
+        }
+        composable(
+            route = Screen.WaitingRoom.route,
+            arguments = listOf(
+                navArgument("courseId") { type = NavType.IntType },
+            )
+        ) { entry ->
+            val courseId = entry.arguments?.getString("courseId") ?: "default"
+            WaitingRoomScreen(
+                navController = navController
             )
         }
         composable(route = Screen.Analysis.route) {
