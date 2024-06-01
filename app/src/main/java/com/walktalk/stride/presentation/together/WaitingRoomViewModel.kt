@@ -16,15 +16,15 @@ class WaitingRoomViewModel : ViewModel() {
     private val _waitingRoomApiState = mutableStateOf<ApiState<String>>(ApiState.Empty)
     val waitingRoomApiState: State<ApiState<String>> = _waitingRoomApiState
 
-    private val _waitingRoom = mutableStateOf<WaitingRooms?>(null)
-    val waitingRoom: State<WaitingRooms?> = _waitingRoom
+    private val _waitingRooms = mutableStateOf<WaitingRooms?>(null)
+    val waitingRooms: State<WaitingRooms?> = _waitingRooms
 
     fun getWaitingRoom(courseId: Int) {
         try {
             _waitingRoomApiState.value = ApiState.Loading
             viewModelScope.launch {
                 val response = _repository.getWaitingRooms(1)
-                _waitingRoom.value = response.toWaitingRooms()
+                _waitingRooms.value = response.toWaitingRooms()
                 _waitingRoomApiState.value = ApiState.Success("getWaitingRoom Success")
             }
         } catch (e: Exception) {

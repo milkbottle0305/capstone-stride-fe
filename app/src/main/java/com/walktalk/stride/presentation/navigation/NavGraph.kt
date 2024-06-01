@@ -97,9 +97,11 @@ fun NavGraph(
                 navArgument("courseId") { type = NavType.IntType },
             )
         ) { entry ->
-            val courseId = entry.arguments?.getString("courseId") ?: "default"
+            val courseId = entry.arguments?.getInt("courseId") ?: 0
             WaitingRoomScreen(
-                navController = navController
+                navController = navController,
+                viewModel = viewModel(),
+                courseId = courseId.toInt()
             )
         }
         composable(route = Screen.Analysis.route) {

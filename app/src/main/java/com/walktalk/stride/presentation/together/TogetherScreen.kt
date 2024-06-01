@@ -2,6 +2,7 @@
 
 package com.walktalk.stride.presentation.together
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,8 +22,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.walktalk.stride.R
 import com.walktalk.stride.data.model.ApiState
+import com.walktalk.stride.data.model.Coordinate
 import com.walktalk.stride.data.model.PopularCourse
 import com.walktalk.stride.presentation.components.StrideNavigationBar
 import com.walktalk.stride.presentation.together.components.CourseCard
@@ -90,13 +93,39 @@ fun TogetherContent(navController: NavController, popularCourses: List<PopularCo
                             nearby = popularCourses[itemIndex].nearby,
                             onSingleClicked = {},
                             onTogetherClicked = {
+                                Log.d("TogetherScreen", "${popularCourses[itemIndex].courseId}")
                                 navController.navigate(
-                                    "waiting_room/courseId=${popularCourses[itemIndex].courseId}"
+                                    "waiting_room?courseId=${popularCourses[itemIndex].courseId}"
                                 )
+                            }
                         )
                     }
                 }
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun TogetherScreenPreview() {
+    TogetherContent(
+        navController = rememberNavController(),
+        popularCourses = listOf(
+            PopularCourse(
+                course = listOf(Coordinate(0.0, 0.0), Coordinate(0.0, 0.0)),
+                courseName = "Course 1",
+                participatingCount = 10,
+                nearby = 5000.0,
+                courseId = 1
+            ),
+            PopularCourse(
+                course = listOf(Coordinate(0.0, 0.0), Coordinate(0.0, 0.0)),
+                courseName = "Course 1",
+                participatingCount = 10,
+                nearby = 5000.0,
+                courseId = 1
+            ),
+        )
+    )
 }

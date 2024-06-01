@@ -8,6 +8,6 @@ sealed class Screen(val route: String) {
     object Exercise : Screen("exercise?exerciseType={exerciseType}&goalStep={goalStep}")
     object ExerciseSummary : Screen("exercise_summary")
     object Together : Screen("together")
-    object WaitingRoom : Screen("waiting_room/courseId={courseId}")
+    object WaitingRoom : Screen("waiting_room?courseId={courseId}")
     object Analysis : Screen("analysis")
 }

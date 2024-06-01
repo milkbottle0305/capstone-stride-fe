@@ -1,23 +1,17 @@
 package com.walktalk.stride.presentation.exercise.components
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Polyline
-import com.walktalk.stride.presentation.exercise.ExerciseViewModel
 import com.walktalk.stride.ui.theme.StrideTheme
 
 @Composable
-fun SummaryMap(viewModel: ExerciseViewModel) {
-
-    val pathList = viewModel.pathList.value
+fun SummaryMap(modifier: Modifier, pathList: List<LatLng>) {
     val maxLat = pathList.maxByOrNull { it.latitude }?.latitude ?: 0.0
     val minLat = pathList.minByOrNull { it.latitude }?.latitude ?: 0.0
     val maxLng = pathList.maxByOrNull { it.longitude }?.longitude ?: 0.0
@@ -31,9 +25,7 @@ fun SummaryMap(viewModel: ExerciseViewModel) {
         )
     )
     GoogleMap(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp),
+        modifier = modifier,
         cameraPositionState = cameraPositionState,
         uiSettings = MapUiSettings(
             zoomControlsEnabled = false,

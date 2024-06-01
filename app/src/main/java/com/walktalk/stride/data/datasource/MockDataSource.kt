@@ -165,6 +165,36 @@ class MockDataSource {
                     meetingTime = "Tue, 16 Mar 2021 14:00:00 GMT",
                     participatingCount = 3
                 ),
+                WaitingRoom(
+                    roomId = 1,
+                    meetingTime = "Tue, 16 Mar 2021 14:00:00 GMT",
+                    participatingCount = 3
+                ),
+                WaitingRoom(
+                    roomId = 1,
+                    meetingTime = "Tue, 16 Mar 2021 14:00:00 GMT",
+                    participatingCount = 3
+                ),
+                WaitingRoom(
+                    roomId = 1,
+                    meetingTime = "Tue, 16 Mar 2021 14:00:00 GMT",
+                    participatingCount = 3
+                ),
+                WaitingRoom(
+                    roomId = 1,
+                    meetingTime = "Tue, 16 Mar 2021 14:00:00 GMT",
+                    participatingCount = 3
+                ),
+                WaitingRoom(
+                    roomId = 1,
+                    meetingTime = "Tue, 16 Mar 2021 14:00:00 GMT",
+                    participatingCount = 3
+                ),
+                WaitingRoom(
+                    roomId = 1,
+                    meetingTime = "Tue, 16 Mar 2021 14:00:00 GMT",
+                    participatingCount = 3
+                ),
             ),
             courseName = "경희대 국제캠 한바퀴",
             course = listOf(
