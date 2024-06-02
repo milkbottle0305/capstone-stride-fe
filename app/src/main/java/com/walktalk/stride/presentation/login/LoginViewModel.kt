@@ -6,6 +6,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -29,8 +32,7 @@ class LoginViewModel(
     private val _loginApiState = mutableStateOf<ApiState<String>>(ApiState.Empty)
     val loginApiState: State<ApiState<String>> = _loginApiState
 
-
-    fun createKakaoToken() {
+    fun kakaoLogin() {
         _loginApiState.value = ApiState.Loading
         // 로그인 조합 예제
         // 카카오계정으로 로그인 공통 callback 구성
@@ -86,9 +88,9 @@ class LoginViewModel(
                             response.refreshToken
                         )
                         if (response.needInitialization) {
-                            _loginApiState.value = ApiState.Success("카카오톡 로그인 성공: 초기화 필요")
+                            _loginApiState.value = ApiState.Success("로그인 성공: 초기화 필요")
                         } else {
-                            _loginApiState.value = ApiState.Success("카카오톡 로그인 성공: 초기화 불필요")
+                            _loginApiState.value = ApiState.Success("로그인 성공: 초기화 불필요")
                         }
                     } catch (e: Exception) {
                         Log.e(TAG, e.message.toString())
@@ -99,10 +101,48 @@ class LoginViewModel(
         }
     }
 
-    fun googleLogin() {
-        viewModelScope.launch {
-            // TODO: 구글 로그인
+
+    fun handleGoogleSignInResult(task: Task<GoogleSignInAccount>?) {
+        _loginApiState.value = ApiState.Loading
+        if (task == null) {
+            _loginApiState.value = ApiState.Error("Google 로그인 실패")
+            return
+        }
+        try {
+            val account = task.getResult(ApiException::class.java)
+            account?.let {
+                saveGoogleUserId(it)
+            } ?: run {
+                _loginApiState.value = ApiState.Error("Google 로그인 실패")
+            }
+        } catch (e: ApiException) {
+            Log.e("LoginViewModel", "Google sign in failed: ${e.statusCode}")
+            _loginApiState.value = ApiState.Error("Google 로그인 실패")
         }
     }
 
+    private fun saveGoogleUserId(account: GoogleSignInAccount) {
+        val googleUserId = account.id
+        if (googleUserId == null) {
+            _loginApiState.value = ApiState.Error("Google 로그인 실패")
+            return
+        }
+        SharedPreferences(context).setStringPref("googleUserId", googleUserId)
+        viewModelScope.launch {
+            val request = LoginRequest("google", googleUserId)
+            try {
+                val response = loginRepository.login(request)
+                SharedPreferences(context).setStringPref("accessToken", response.accessToken)
+                SharedPreferences(context).setStringPref("refreshToken", response.refreshToken)
+                _loginApiState.value = if (response.needInitialization) {
+                    ApiState.Success("로그인 성공: 초기화 필요")
+                } else {
+                    ApiState.Success("로그인 성공: 초기화 불필요")
+                }
+            } catch (e: Exception) {
+                Log.e("LoginViewModel", e.message.toString())
+                _loginApiState.value = ApiState.Error("Google 로그인 실패")
+            }
+        }
+    }
 }

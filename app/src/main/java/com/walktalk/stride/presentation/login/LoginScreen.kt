@@ -3,6 +3,7 @@
 package com.walktalk.stride.presentation.login
 
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -33,17 +34,22 @@ import com.walktalk.stride.R
 import com.walktalk.stride.data.model.ApiState
 import com.walktalk.stride.presentation.navigation.Screen
 import com.walktalk.stride.ui.theme.StrideTheme
+import com.walktalk.stride.utils.GoogleApiContract
 
 @Composable
 fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
     val context = LocalContext.current
     val loginApiState = viewModel.loginApiState.value
-
+    val authResultLauncher = rememberLauncherForActivityResult(
+        contract = GoogleApiContract()
+    ) { task ->
+        viewModel.handleGoogleSignInResult(task)
+    }
     LaunchedEffect(loginApiState) {
         when (loginApiState) {
             is ApiState.Success -> {
                 when (loginApiState.data) {
-                    "카카오톡 로그인 성공: 초기화 필요" -> {
+                    "로그인 성공: 초기화 필요" -> {
                         navController.navigate(Screen.SignupGenderAge.route) {
                             popUpTo(Screen.Login.route) {
                                 inclusive = true
@@ -51,7 +57,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
                         }
                     }
 
-                    "카카오톡 로그인 성공: 초기화 불필요" -> {
+                    "로그인 성공: 초기화 불필요" -> {
                         navController.navigate(Screen.Main.route) {
                             popUpTo(Screen.Login.route) {
                                 inclusive = true
@@ -109,7 +115,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
                         .padding(top = 13.dp, start = 25.dp, end = 25.dp)
                         .fillMaxWidth()
                         .clip(shape = RoundedCornerShape(4.dp))
-                        .clickable { viewModel.createKakaoToken() },
+                        .clickable { viewModel.kakaoLogin() },
                     painter = painterResource(id = R.drawable.kakao_login),
                     contentDescription = "kakao_login",
                     contentScale = ContentScale.FillWidth,
@@ -119,7 +125,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
                         .padding(top = 13.dp, start = 25.dp, end = 25.dp)
                         .fillMaxWidth()
                         .clip(shape = RoundedCornerShape(4.dp))
-                        .clickable { navController.navigate(Screen.SignupGenderAge.route) },
+                        .clickable { authResultLauncher.launch(100) },
                     painter = painterResource(id = R.drawable.google_login),
                     contentDescription = "google_login",
                     contentScale = ContentScale.FillWidth,
