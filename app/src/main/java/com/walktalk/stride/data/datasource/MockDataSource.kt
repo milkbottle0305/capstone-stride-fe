@@ -27,12 +27,12 @@ class MockDataSource {
 
     suspend fun getTodayGoal(): TodayGoalResponse {
         return TodayGoalResponse(
-            level = 4,
+            tier = 4,
             exp = 5,
             stride = TodayIntData(67, 70),
             speed = TodayDoubleData(4.8, 5.0),
             step = TodayIntData(4950, 5000),
-            allComplete = false
+            todayTierUp = false
         )
     }
 

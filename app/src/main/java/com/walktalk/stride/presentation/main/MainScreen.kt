@@ -125,32 +125,31 @@ fun MainContent(
 ) {
     val density = LocalDensity.current
     val context = LocalContext.current
-    val levelString = remember(todayGoal.level) {
-        when (todayGoal.level) {
-            1 -> {
-                Log.d("MainScreen", "level 1")
-                context.getString(R.string.level_1)
+    val tierString = remember(todayGoal.tier) {
+        when (todayGoal.tier) {
+            0 -> {
+                context.getString(R.string.tier_1)
             }
 
-            2 -> context.getString(R.string.level_2)
-            3 -> context.getString(R.string.level_3)
-            4 -> context.getString(R.string.level_4)
-            else -> context.getString(R.string.level_4)
+            1 -> context.getString(R.string.tier_2)
+            2 -> context.getString(R.string.tier_3)
+            3 -> context.getString(R.string.tier_4)
+            else -> context.getString(R.string.tier_4)
         }
     }
 
-    val nextLevelString = remember(todayGoal.level) {
-        when (todayGoal.level) {
-            1 -> context.getString(R.string.level_2)
-            2 -> context.getString(R.string.level_3)
-            3 -> context.getString(R.string.level_4)
-            4 -> context.getString(R.string.level_4)
-            else -> context.getString(R.string.level_4)
+    val nextTierString = remember(todayGoal.tier) {
+        when (todayGoal.tier) {
+            0 -> context.getString(R.string.tier_2)
+            1 -> context.getString(R.string.tier_3)
+            2 -> context.getString(R.string.tier_4)
+            3 -> context.getString(R.string.tier_4)
+            else -> context.getString(R.string.tier_4)
         }
     }
 
-    LaunchedEffect(todayGoal.allComplete) {
-        if (todayGoal.allComplete) {
+    LaunchedEffect(todayGoal.todayTierUp) {
+        if (todayGoal.todayTierUp) {
             setIsGoalClicked(true)
         }
     }
@@ -192,39 +191,39 @@ fun MainContent(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    text = levelString,
+                                    text = tierString,
                                     color = StrideTheme.colors.textSecondary,
                                     fontSize = 32.sp,
                                     fontWeight = FontWeight.Bold,
                                 )
                                 Spacer(modifier = Modifier.width(5.dp))
                                 Image(
-                                    painter = when (todayGoal.level) {
-                                        1 -> painterResource(id = R.drawable.level_1)
-                                        2 -> painterResource(id = R.drawable.level_2)
-                                        3 -> painterResource(id = R.drawable.level_3)
-                                        else -> painterResource(id = R.drawable.level_4)
+                                    painter = when (todayGoal.tier) {
+                                        0 -> painterResource(id = R.drawable.tier_1)
+                                        1 -> painterResource(id = R.drawable.tier_2)
+                                        2 -> painterResource(id = R.drawable.tier_3)
+                                        else -> painterResource(id = R.drawable.tier_4)
                                     },
-                                    contentDescription = "level_icon",
+                                    contentDescription = "tier_icon",
                                     modifier = Modifier
                                         .width(42.dp)
                                         .height(48.dp)
                                 )
                                 Spacer(modifier = Modifier.width(5.dp))
                                 LinearProgressIndicator(
-                                    progress = when (todayGoal.level) {
-                                        4 -> 1f
+                                    progress = when (todayGoal.tier) {
+                                        3 -> 1f
                                         else -> todayGoal.exp / 10f
                                     },
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .height(24.dp)
                                         .clip(RoundedCornerShape(12.dp)),
-                                    color = when (todayGoal.level) {
-                                        1 -> StrideTheme.colors.level1
-                                        2 -> StrideTheme.colors.level2
-                                        3 -> StrideTheme.colors.level3
-                                        else -> StrideTheme.colors.level3
+                                    color = when (todayGoal.tier) {
+                                        0 -> StrideTheme.colors.tier1
+                                        1 -> StrideTheme.colors.tier2
+                                        2 -> StrideTheme.colors.tier3
+                                        else -> StrideTheme.colors.tier3
                                     },
                                     trackColor = StrideTheme.colors.progressBackground,
                                 )
@@ -548,9 +547,9 @@ fun MainContent(
                         contentAlignment = Alignment.Center,
                     ) {
                         GoalModal(
-                            allComplete = todayGoal.allComplete,
-                            levelString = levelString,
-                            nextLevelString = nextLevelString,
+                            allComplete = todayGoal.todayTierUp,
+                            levelString = tierString,
+                            nextLevelString = nextTierString,
                             stride = todayGoal.goalStride,
                             speed = todayGoal.goalSpeed,
                             step = todayGoal.goalStep

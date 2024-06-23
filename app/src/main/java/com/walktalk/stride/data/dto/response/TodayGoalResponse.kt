@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 import com.walktalk.stride.data.model.TodayGoal
 
 data class TodayGoalResponse(
-    val level: Int,
+    val tier: Int,
     val exp: Int,
     val stride: TodayIntData,
     val speed: TodayDoubleData,
     val step: TodayIntData,
-    @SerializedName("all_complete")
-    val allComplete: Boolean
+    @SerializedName("today_tier_up")
+    val todayTierUp: Boolean
 )
 
 data class TodayIntData(
@@ -28,7 +28,7 @@ data class TodayDoubleData(
 )
 
 fun TodayGoalResponse.toTodayGoal() = TodayGoal(
-    level = level,
+    tier = tier,
     exp = exp,
     currentStride = stride.todayCurrent,
     goalStride = stride.todayGoal,
@@ -36,5 +36,5 @@ fun TodayGoalResponse.toTodayGoal() = TodayGoal(
     goalSpeed = speed.todayGoal,
     currentStep = step.todayCurrent,
     goalStep = step.todayGoal,
-    allComplete = allComplete
+    todayTierUp = todayTierUp
 )

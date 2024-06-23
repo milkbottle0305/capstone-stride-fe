@@ -150,11 +150,11 @@ class StrideColors(
         private set
     var navUnselected by mutableStateOf(navUnselected)
         private set
-    var level1 by mutableStateOf(level1)
+    var tier1 by mutableStateOf(level1)
         private set
-    var level2 by mutableStateOf(level2)
+    var tier2 by mutableStateOf(level2)
         private set
-    var level3 by mutableStateOf(level3)
+    var tier3 by mutableStateOf(level3)
         private set
     var levelBackground by mutableStateOf(levelBackground)
         private set
@@ -208,9 +208,9 @@ class StrideColors(
         navBackground: Color = this.navBackground,
         navSelected: Color = this.navSelected,
         navUnselected: Color = this.navUnselected,
-        level1: Color = this.level1,
-        level2: Color = this.level2,
-        level3: Color = this.level3,
+        level1: Color = this.tier1,
+        level2: Color = this.tier2,
+        level3: Color = this.tier3,
         levelBackground: Color = this.levelBackground,
         modalBackground: Color = this.modalBackground,
         progress: Color = this.progress,
@@ -304,9 +304,9 @@ class StrideColors(
         navBackground = other.navBackground
         navSelected = other.navSelected
         navUnselected = other.navUnselected
-        level1 = other.level1
-        level2 = other.level2
-        level3 = other.level3
+        tier1 = other.tier1
+        tier2 = other.tier2
+        tier3 = other.tier3
         levelBackground = other.levelBackground
         modalBackground = other.modalBackground
         progress = other.progress
