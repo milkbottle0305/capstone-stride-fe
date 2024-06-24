@@ -169,6 +169,12 @@ fun MainContent(
                     modifier = Modifier.padding(horizontal = 10.dp),
                     verticalArrangement = Arrangement.Center,
                 ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.mypage),
+                        contentDescription = "mypage",
+                        modifier = Modifier
+                            .size(48.dp).align(Alignment.End)
+                    )
                     Text(
                         text = stringResource(id = R.string.main_today_goal),
                         color = StrideTheme.colors.textSecondary,
